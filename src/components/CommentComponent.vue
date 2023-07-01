@@ -1,11 +1,11 @@
 <script>
 export default {
-    name: "QuestionCommentComponent"
+    name: "CommentComponent"
 }
 </script>
 
 <template>
-    <div class="card p-3 border-0">
+    <div class="card p-3 border-0 border-top">
         <div class="d-flex">
             <div class="img-user-comment rounded-circle">
                 <img src="https://i.pinimg.com/originals/b5/6d/9e/b56d9ed31076329211d42bd8ff340914.jpg" alt="">

@@ -46,15 +46,17 @@ export default {
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto" v-else>
+                    <li class="nav-item d-flex align-items-center me-2">
+                        <router-link to="/create-question" class="btn btn-dark rounded-pill px-4">Ask Question</router-link>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-conten-center">
                                 <div class="img-user-comment rounded-circle">
                                     <img src="https://i.pinimg.com/originals/b5/6d/9e/b56d9ed31076329211d42bd8ff340914.jpg"
                                         alt="">
                                 </div>
-                                <p class="m-0 ms-2">Dhaniar Febrin</p>
                             </div>
                         </a>
                         <ul class="dropdown-menu">
