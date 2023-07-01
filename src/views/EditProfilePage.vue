@@ -12,7 +12,7 @@ export default {
     <div>
         <NavBar :user-logged-in="true" />
         <div class="container mt-5 pt-5">
-            Edit Profile Page Coming Soon...
+            
         </div>
     </div>
 </template>

@@ -38,7 +38,7 @@ export default {
                             <router-link class="btn btn-secondary rounded-pill px-4" to="/edit-profile/2">
                                 Edit Profile
                             </router-link>
-                            <button class="btn btn-outline-danger rounded-pill px-4 mt-2">Change Password</button>
+                            <!-- <button class="btn btn-outline-danger rounded-pill px-4 mt-2">Change Password</button> -->
                         </div>
                     </div>
                 </div>
