@@ -59,12 +59,12 @@ export default {
                                 </div>
                             </div>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu shadow">
                             <li>
-                                <router-link to="/profile" class="dropdown-item" href="#">Profile</router-link>
+                                <router-link to="/profile/2" class="dropdown-item">Profile</router-link>
                             </li>
                             <li>
-                                <router-link to="/" class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right"></i> Logout</router-link>
+                                <router-link to="/" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right"></i> Logout</router-link>
                             </li>
                         </ul>
                     </li>

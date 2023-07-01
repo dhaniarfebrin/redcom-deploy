@@ -6,6 +6,8 @@ import LoginPage from '../views/LoginPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import CreateQuestionPage from '../views/CreateQuestionPage.vue'
 import ProfilePage from '../views/ProfilePage.vue'
+import EditProfilePage from '../views/EditProfilePage.vue'
+import PageNotFound from '../views/PageNotFound/PageNotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,7 +23,7 @@ const router = createRouter({
       component: QuestionPage
     },
     {
-      path: '/question/:id',
+      path: '/question/:id', // param id
       name: 'detail-question',
       component: DetailQuestionPage
     },
@@ -41,18 +43,20 @@ const router = createRouter({
       component: CreateQuestionPage
     },
     {
-      path: '/profile',
+      path: '/profile/:id', // param id
       name: 'profile',
       component: ProfilePage
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
+    {
+      path: '/edit-profile/:id', // param id
+      name: 'edit-profile',
+      component: EditProfilePage
+    },
+    {
+      path: '/:pathMatch(.*)', // param id
+      name: 'page-not-found',
+      component: PageNotFound
+    },
   ]
 })
 

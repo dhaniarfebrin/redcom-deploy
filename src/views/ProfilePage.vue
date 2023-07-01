@@ -35,9 +35,9 @@ export default {
                         <p class="text-secondary m-0">tergantengdidunia@gmail.com</p>
                         <span class="form-text"><i class="bi bi-calendar-date"></i> 12 June 2023</span>
                         <div class="d-flex flex-column mt-3" v-if="!isVisitor">
-                            <button class="btn btn-secondary rounded-pill px-4">
+                            <router-link class="btn btn-secondary rounded-pill px-4" to="/edit-profile/2">
                                 Edit Profile
-                            </button>
+                            </router-link>
                             <button class="btn btn-outline-danger rounded-pill px-4 mt-2">Change Password</button>
                         </div>
                     </div>
