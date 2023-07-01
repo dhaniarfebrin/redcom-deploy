@@ -33,7 +33,7 @@ export default {
                 <form action="">
                     <div class="form-group">
                         <label for="" class="form-label">Full Name</label>
-                        <input type="email" class="form-control rounded-pill bg-body-secondary">
+                        <input type="text" class="form-control rounded-pill bg-body-secondary">
                     </div>
                     <div class="form-group mt-3">
                         <label for="" class="form-label">Email</label>
