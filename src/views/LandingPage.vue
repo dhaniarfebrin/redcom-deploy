@@ -11,7 +11,7 @@ export default {
 
 <template lang="">
     <div>
-        <NavBar />
+        <NavBar :userLoggedIn="false" />
         <div class="container mt-5">
             <div class="row hero">
                 <div class="col-md-6 d-flex justify-content-center flex-column pe-3">

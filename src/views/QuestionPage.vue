@@ -12,7 +12,7 @@ export default {
 
 <template lang="">
     <div class="mb-5">
-        <NavBar />
+        <NavBar :userLoggedIn="false" />
         <div class="mt-5 pt-5">
             <div class="d-flex flex-column align-items-center">
 

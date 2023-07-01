@@ -5,6 +5,7 @@ import DetailQuestionPage from '../views/DetailQuestionPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import CreateQuestionPage from '../views/CreateQuestionPage.vue'
+import ProfilePage from '../views/ProfilePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/create-question',
       name: 'create-question',
       component: CreateQuestionPage
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfilePage
     },
     // {
     //   path: '/about',

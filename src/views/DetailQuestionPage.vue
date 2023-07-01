@@ -11,7 +11,7 @@ export default {
 
 <template>
     <div class="mb-3">
-        <NavBar />
+        <NavBar :userLoggedIn="true" />
         <div class="container mt-5 pt-2">
 
             <div class="d-flex flex-column align-items-center">

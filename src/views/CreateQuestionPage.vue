@@ -10,7 +10,7 @@ export default {
 
 <template>
     <div>
-        <NavBar />
+        <NavBar :userLoggedIn="true" />
         <div class="container mt-5 pt-5">
             <div class="d-flex justify-content-center">
                 <div class="card p-5 shadow-sm mt-5">
