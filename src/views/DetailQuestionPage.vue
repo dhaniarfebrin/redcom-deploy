@@ -1,6 +1,7 @@
 <script setup>
 import NavBar from '../components/NavBar.vue';
 import CommentComponent from '../components/CommentComponent.vue';
+import axios from 'axios'
 </script>
 
 <script>
@@ -9,11 +10,25 @@ export default {
     data() {
         return {
             userLoggedIn: Boolean,
+            questionData: Object
+        }
+    },
+    methods: {
+        getSpecificQuestion() {
+            axios.get(`http://localhost:5000/api/posts/${this.$route.params.id}`)
+                .then(response => {
+                    this.questionData = response.data.data
+                })
+                .catch(err => {
+                    console.log("Error fetching category questions", err)
+                })
         }
     },
     mounted() {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
+
+        this.getSpecificQuestion()
     }
 }
 </script>
@@ -38,15 +53,13 @@ export default {
                                         <div class="ms-3 d-flex flex-column justify-content-center">
                                             <span class="fs-5 fw-bold">Dhaniar Febrin</span>
                                             <span class="d-flex">
-                                                <p class="fw-light form-text m-0">21 Juni 2023</p>
+                                                <p class="fw-light form-text m-0">{{ questionData.crdAt }}</p>
                                                 <span
                                                     class="ms-2 fw-light badge rounded-pill text-bg-secondary">Programming</span>
                                             </span>
                                         </div>
                                     </div>
-                                    <p class="mt-3 fw-superlight">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                        Optio temporibus quibusdam
-                                        nostrum dolores dolorum quisquam placeat quos culpa pariatur.</p>
+                                    <p class="mt-3 fw-superlight">{{ questionData.content }}</p>
                                     <div class="d-flex mt-4 border border-0 pt-3 border-top" v-if="userLoggedIn">
                                         <input type="text" class="form-control bg-body-secondary rounded-pill"
                                             placeholder="write answer or comment here">
@@ -54,7 +67,8 @@ export default {
                                                 class="bi bi-send-fill"></i></button>
                                     </div>
                                     <div class="d-flex mt-4 border border-0 pt-3 border-top" v-else>
-                                        <input type="text" class="form-control bg-body-secondary rounded-pill not-logged-in-form"
+                                        <input type="text"
+                                            class="form-control bg-body-secondary rounded-pill not-logged-in-form"
                                             placeholder="login first" disabled>
                                     </div>
                                 </div>

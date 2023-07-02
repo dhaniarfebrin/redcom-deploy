@@ -11,6 +11,7 @@ export default {
     data() {
         return {
             categoriesData: [],
+            questionsData: [],
             userLoggedIn: Boolean
         }
     },
@@ -23,13 +24,23 @@ export default {
                 .catch(err => {
                     console.log("Error fetching category questions", err)
                 })
+        },
+        getQuestions() {
+            axios.get('http://localhost:5000/api/posts/')
+                .then(response => {
+                    this.questionsData = response.data.data
+                })
+                .catch(err => {
+                    console.log("Error fetching question questions", err)
+                })
         }
     },
     mounted() {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
-        
+
         this.getCategories()
+        this.getQuestions()
     }
 }
 </script>
@@ -67,8 +78,8 @@ export default {
                             </div>
                             <!-- end have question component -->
 
-                            <div>
-                                <QuestionCard />
+                            <div v-for="question in questionsData" :key="question._id">
+                                <QuestionCard :question="question" />
                             </div>
 
                         </div>
