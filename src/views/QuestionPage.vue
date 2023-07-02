@@ -33,6 +33,19 @@ export default {
                 .catch(err => {
                     console.log("Error fetching question questions", err)
                 })
+        },
+        sortQuestion() {
+            axios.get(`http://localhost:5000/api/homepage/sort-kategori?kategoriPost=${this.$route.query.categoryPost}`)
+                .then(response => {
+                    this.questionsData = response.data.data
+                })
+                .catch(err => {
+                    if (err.response.status === 404) {
+                        this.questionsData = []
+                    } else {
+                        console.log("Error fetching question questions", err.response.status)
+                    }
+                })
         }
     },
     mounted() {
@@ -40,7 +53,15 @@ export default {
         this.userLoggedIn = token ? true : false
 
         this.getCategories()
-        this.getQuestions()
+
+        if (this.$route.query.categoryPost) {
+            this.sortQuestion()
+        } else {
+            this.getQuestions()
+        }
+    },
+    watch: {
+        '$route.query': 'sortQuestion',
     }
 }
 </script>
@@ -78,8 +99,11 @@ export default {
                             </div>
                             <!-- end have question component -->
 
-                            <div v-for="question in questionsData" :key="question._id">
-                                <QuestionCard :question="question" />
+                            <div v-if="questionsData[0] === 'Empty'">
+                                <h2>kosong</h2>
+                            </div>
+                            <div v-else>
+                                <QuestionCard v-for="question in questionsData" :key="question._id" :question="question" />
                             </div>
 
                         </div>
