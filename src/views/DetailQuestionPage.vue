@@ -8,15 +8,19 @@ export default {
     name: 'DetailQuestionPage',
     data() {
         return {
-            isLoggedIn: true,
+            userLoggedIn: Boolean,
         }
+    },
+    mounted() {
+        let token = localStorage.getItem("user")
+        this.userLoggedIn = token ? true : false
     }
 }
 </script>
 
 <template>
     <div class="mb-3">
-        <NavBar :userLoggedIn="isLoggedIn" />
+        <NavBar :userLoggedIn="userLoggedIn" />
         <div class="container mt-5 pt-2">
 
             <div class="d-flex flex-column align-items-center">
@@ -43,7 +47,7 @@ export default {
                                     <p class="mt-3 fw-superlight">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                         Optio temporibus quibusdam
                                         nostrum dolores dolorum quisquam placeat quos culpa pariatur.</p>
-                                    <div class="d-flex mt-4 border border-0 pt-3 border-top" v-if="isLoggedIn">
+                                    <div class="d-flex mt-4 border border-0 pt-3 border-top" v-if="userLoggedIn">
                                         <input type="text" class="form-control bg-body-secondary rounded-pill"
                                             placeholder="write answer or comment here">
                                         <button type="button" class="btn btn-dark rounded-circle ms-1"><i

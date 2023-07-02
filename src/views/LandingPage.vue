@@ -1,17 +1,42 @@
 <script setup>
 import NavBar from '../components/NavBar.vue';
 import CategoryQuestion from '../components/CategoryQuestion.vue';
+import axios from 'axios'
 </script>
 
 <script>
 export default {
-    name: 'LandingPage'
+    name: 'LandingPage',
+    data() {
+        return {
+            categoriesData: [],
+            userLoggedIn: Boolean
+        }
+    },
+    methods: {
+        setCategoriesData(data) {
+            this.categoriesData = data
+        }
+    },
+    mounted() {
+        let token = localStorage.getItem("user")
+        this.userLoggedIn = token ? true : false
+
+        axios.get('http://localhost:5000/api/kategori')
+            .then(response => {
+                this.setCategoriesData(response.data.data)
+            })
+            .catch(err => {
+                console.log("Error fetching category questions", err)
+            })
+
+    }
 }
 </script>
 
 <template lang="">
     <div>
-        <NavBar :userLoggedIn="false" />
+        <NavBar :userLoggedIn="userLoggedIn" />
         <div class="container mt-5">
             <div class="row hero">
                 <div class="col-md-6 d-flex justify-content-center flex-column pe-3">
@@ -26,23 +51,8 @@ export default {
                 </div>
             </div>
             <div class="row mb-5">
-                <div class="col-md-2">
-                    <CategoryQuestion />
-                </div>
-                <div class="col-md-2">
-                    <CategoryQuestion />
-                </div>
-                <div class="col-md-2">
-                    <CategoryQuestion />
-                </div>
-                <div class="col-md-2">
-                    <CategoryQuestion />
-                </div>
-                <div class="col-md-2">
-                    <CategoryQuestion />
-                </div>
-                <div class="col-md-2">
-                    <CategoryQuestion />
+                <div class="col-md-2" v-for="category in categoriesData" :key="category._id">
+                    <CategoryQuestion :category="category" />
                 </div>
             </div>
         </div>
@@ -50,11 +60,11 @@ export default {
 </template>
 
 <style scoped>
-    h1.fs-1 {
-        font-size: 68px !important;
-    }
+h1.fs-1 {
+    font-size: 68px !important;
+}
 
-    div.row.hero {
-        height: 70vh;
-    }
+div.row.hero {
+    height: 70vh;
+}
 </style>    

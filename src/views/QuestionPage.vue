@@ -2,17 +2,41 @@
 import NavBar from '../components/NavBar.vue';
 import CategoryQuestion from '../components/CategoryQuestion.vue';
 import QuestionCard from '../components/QuestionCard.vue';
+import axios from 'axios'
 </script>
 
 <script>
 export default {
-    name: 'QuestionPage'
+    name: 'QuestionPage',
+    data() {
+        return {
+            categoriesData: [],
+            userLoggedIn: Boolean
+        }
+    },
+    methods: {
+        getCategories() {
+            axios.get('http://localhost:5000/api/kategori')
+                .then(response => {
+                    this.categoriesData = response.data.data
+                })
+                .catch(err => {
+                    console.log("Error fetching category questions", err)
+                })
+        }
+    },
+    mounted() {
+        let token = localStorage.getItem("user")
+        this.userLoggedIn = token ? true : false
+        
+        this.getCategories()
+    }
 }
 </script>
 
 <template lang="">
     <div class="mb-5">
-        <NavBar :userLoggedIn="true" />
+        <NavBar :userLoggedIn="userLoggedIn" />
         <div class="mt-5 pt-5">
             <div class="d-flex flex-column align-items-center">
 
@@ -20,33 +44,8 @@ export default {
                 <div class="mw-50 category mt-4">
                     <div class="row">
                         <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
-                        </div>
-                        <!-- component category -->
-                        <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
-                        </div>
-                        <!-- component category -->
-                        <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
-                        </div>
-                        <!-- component category -->
-                        <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
-                        </div>
-                        <!-- component category -->
-                        <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
-                        </div>
-                        <!-- component category -->
-                        <!-- component category -->
-                        <div class="col-md-2">
-                            <CategoryQuestion />
+                        <div class="col-md-2" v-for="category in categoriesData" :key="category._id">
+                            <CategoryQuestion :category="category" />
                         </div>
                         <!-- component category -->
                     </div>
@@ -68,18 +67,9 @@ export default {
                             </div>
                             <!-- end have question component -->
 
-                            <!-- question -->
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <QuestionCard />
-                            <!-- end question -->
+                            <div>
+                                <QuestionCard />
+                            </div>
 
                         </div>
                     </div>

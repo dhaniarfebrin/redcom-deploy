@@ -4,13 +4,22 @@ import NavBar from '../components/NavBar.vue';
 
 <script>
 export default {
-    name: 'CreateQuestionPage'
+    name: 'CreateQuestionPage',
+    data() {
+        return {
+            userLoggedIn: Boolean, // TODO get this value from store or cookie after login page is done
+        }
+    },
+    mounted() {
+        let token = localStorage.getItem("user")
+        this.userLoggedIn = token ? true : false
+    }
 }
 </script>
 
 <template>
     <div>
-        <NavBar :userLoggedIn="true" />
+        <NavBar :userLoggedIn="userLoggedIn" />
         <div class="container mt-5 pt-5">
             <div class="d-flex justify-content-center">
                 <div class="card p-5 shadow-sm mt-5">
@@ -25,7 +34,8 @@ export default {
                             <option >Computer</option>
                             <option >Computer</option>
                         </select>
-                        <button type="submit" class="btn mt-5 px-4 py-2 btn-dark rounded-pill">Submit</button>
+                        <button type="submit" class="btn mt-5 px-4 py-2 btn-dark rounded-pill" v-if="userLoggedIn">Submit</button>
+                        <button type="submit" disabled  class="btn mt-5 px-4 py-2 btn-dark rounded-pill" v-else>Login First</button>
                     </form>
                 </div>
             </div>
