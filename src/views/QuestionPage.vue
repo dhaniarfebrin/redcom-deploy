@@ -69,10 +69,11 @@ export default {
                 })
         }
     },
-    beforeMount() {
+    created() {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
-
+    },
+    mounted() {
         this.getCategories()
         if (this.$route.query.categoryPost) {
             return this.sortQuestion()

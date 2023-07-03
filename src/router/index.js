@@ -43,7 +43,7 @@ const router = createRouter({
       component: CreateQuestionPage
     },
     {
-      path: '/profile/:id', // param id
+      path: '/profile',
       name: 'profile',
       component: ProfilePage
     },

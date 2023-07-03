@@ -1,6 +1,7 @@
 <script setup>
 import NavBar from '../components/NavBar.vue';
 import QuestionCard from '../components/QuestionCard.vue';
+import axios from 'axios';
 </script>
 
 <script>
@@ -8,18 +9,50 @@ export default {
     name: 'ProfilePage',
     data() {
         return {
-            isVisitor: Boolean
+            isVisitor: Boolean,
+            userLoggedIn: Boolean,
+            userData: {}
         }
     },
-    mounted() {
+    methods: {
+        async getUserDetail() {
+            try {
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("user")}`
+                    }
+                }
+
+                await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/auth/data`, config)
+                    .then(response => {
+                        this.userData = response.data.data
+                    })
+                    .catch(err => {
+                        console.log("Error fetching category questions", err)
+                    })
+
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        async getUserQuestions() {
+
+        }
+    },
+    created() {
+        let token = localStorage.getItem("user")
+        this.userLoggedIn = token ? true : false
         this.isVisitor = false
+    },
+    mounted() {
+        this.getUserDetail()
     }
 }
 </script>
 
 <template>
     <div class="">
-        <NavBar :user-logged-in="true" />
+        <NavBar :user-logged-in="userLoggedIn" />
         <div class="background-img">
             <img src="https://img.freepik.com/free-photo/flat-lay-black-background-with-laptop-coffee-cup-calculator-top-view_169016-36166.jpg?w=1800&t=st=1688220986~exp=1688221586~hmac=501494180e2a9d0ee0781613fb1ccf1fe0e0286b7223bee126c8711fb384206d"
                 alt="">
@@ -31,11 +64,11 @@ export default {
                         <div class="user-img rounded-circle shadow-sm">
                             <img src="https://i.pinimg.com/originals/b5/6d/9e/b56d9ed31076329211d42bd8ff340914.jpg" alt="">
                         </div>
-                        <h4 class="mt-2 m-0">Johan Giovanni</h4>
-                        <p class="text-secondary m-0">tergantengdidunia@gmail.com</p>
-                        <span class="form-text"><i class="bi bi-calendar-date"></i> 12 June 2023</span>
+                        <h4 class="mt-2 m-0">{{ userData.username }}</h4>
+                        <p class="text-secondary m-0">{{ userData.email }}</p>
+                        <span class="form-text"><i class="bi bi-calendar-date"></i> {{ userData.crdAt }}</span>
                         <div class="d-flex flex-column mt-3" v-if="!isVisitor">
-                            <router-link class="btn btn-secondary rounded-pill px-4" to="/edit-profile/2">
+                            <router-link class="btn btn-secondary rounded-pill px-4" :to="`/edit-profile/${userData._id}`">
                                 Edit Profile
                             </router-link>
                             <!-- <button class="btn btn-outline-danger rounded-pill px-4 mt-2">Change Password</button> -->
@@ -51,11 +84,11 @@ export default {
                     </div>
                     <div class="mt-3">
                         <div class="d-flex flex-column">
+                            <!-- <QuestionCard />
                            <QuestionCard />
                            <QuestionCard />
                            <QuestionCard />
-                           <QuestionCard />
-                           <QuestionCard />
+                           <QuestionCard /> -->
                         </div>
                     </div>
                 </div>

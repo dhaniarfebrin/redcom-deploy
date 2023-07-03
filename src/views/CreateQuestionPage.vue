@@ -23,7 +23,7 @@ export default {
                 })
         }
     },
-    mounted() {
+    created() {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
         this.getCategories()

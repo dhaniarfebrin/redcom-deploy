@@ -18,10 +18,11 @@ export default {
             this.categoriesData = data
         }
     },
-    mounted() {
+    created() {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
-
+    },
+    beforeMount() {
         axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/kategori`)
             .then(response => {
                 this.setCategoriesData(response.data.data)
@@ -29,7 +30,6 @@ export default {
             .catch(err => {
                 console.log("Error fetching category questions", err)
             })
-
     }
 }
 </script>
