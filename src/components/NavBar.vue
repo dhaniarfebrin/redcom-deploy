@@ -10,6 +10,10 @@ export default {
     methods: {
         searchQuestion() {
             this.$router.push({ path: `/question`, query: { searchPost: this.search } }) // search
+        },
+        logOut() {
+            localStorage.removeItem("user");
+            this.$router.push("/login");
         }
     }
 }
@@ -61,8 +65,8 @@ export default {
                             <li>
                                 <router-link to="/profile/2" class="dropdown-item">Profile</router-link>
                             </li>
-                            <li>
-                                <router-link to="/" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right"></i> Logout</router-link>
+                            <li @click="logOut">
+                                <a href="#" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right"></i> Logout</a>
                             </li>
                         </ul>
                     </li>
