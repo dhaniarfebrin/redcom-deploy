@@ -17,7 +17,7 @@ export default {
     },
     methods: {
         getCategories() {
-            axios.get('http://localhost:5000/api/kategori')
+            axios.get(`${import.meta.env.VITE_APP_ROOT_API}/api/kategori`)
                 .then(response => {
                     this.categoriesData = response.data.data
                 })
@@ -30,7 +30,7 @@ export default {
                 })
         },
         getQuestions() {
-            axios.get('http://localhost:5000/api/homepage/')
+            axios.get(`${import.meta.env.VITE_APP_ROOT_API}/api/homepage/`)
                 .then(response => {
                     this.questionsData = response.data.data
                 })
@@ -43,7 +43,7 @@ export default {
                 })
         },
         sortQuestion() {
-            axios.get(`http://localhost:5000/api/homepage/sort-kategori?kategoriPost=${this.$route.query.categoryPost}`)
+            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/sort-kategori?kategoriPost=${this.$route.query.categoryPost}`)
                 .then(response => {
                     this.questionsData = response.data.data
                 })
@@ -56,7 +56,7 @@ export default {
                 })
         },
         searchQuestion() {
-            axios.get(`http://localhost:5000/api/homepage/search?searchPost=${this.$route.query.searchPost}`)
+            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/search?searchPost=${this.$route.query.searchPost}`)
                 .then(response => {
                     this.questionsData = response.data.data
                 })

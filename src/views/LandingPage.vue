@@ -22,7 +22,7 @@ export default {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
 
-        axios.get('http://localhost:5000/api/kategori')
+        axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/kategori`)
             .then(response => {
                 this.setCategoriesData(response.data.data)
             })

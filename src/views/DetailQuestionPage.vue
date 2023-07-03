@@ -26,14 +26,14 @@ export default {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
 
-        axios.get(`http://localhost:5000/api/posts/${this.$route.params.id}`)
+        axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/posts/${this.$route.params.id}`)
             .then(response => {
                 this.setQuestionData(response.data.data)
             }).catch(err => {
                 console.log(err);
             })
 
-        axios.get(`http://localhost:5000/api/homepage/comments?postId=${this.$route.params.id}`)
+        axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/comments?postId=${this.$route.params.id}`)
             .then(response => {
                 this.setCommentsData(response.data.data)
                 console.log(response);
