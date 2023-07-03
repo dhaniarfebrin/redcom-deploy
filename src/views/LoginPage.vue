@@ -39,6 +39,12 @@ export default {
                     }
                 })
         }
+    },
+    created() {
+        let token = localStorage.getItem("user")
+        if (token) {
+            return this.$router.push({ path: '/question' }); // Go back to previous page in history stack
+        }
     }
 }
 </script>
@@ -51,7 +57,8 @@ export default {
             <div class="form-login w-25 mt-4">
 
                 <!-- alert -->
-                <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert" v-if="messageError">
+                <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert"
+                    v-if="messageError">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
                     <div class="m-0">
                         {{ messageError }}
@@ -79,6 +86,7 @@ export default {
                 </form>
             </div>
             <span class="mt-4">Don't have an account? <router-link to="/register" class="text-danger">Register
-                Here</router-link></span>
+                    Here</router-link></span>
+        </div>
     </div>
-</div></template>
+</template>

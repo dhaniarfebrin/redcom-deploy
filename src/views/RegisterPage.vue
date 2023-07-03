@@ -20,6 +20,12 @@ export default {
                 this.classShowHide = "bi bi-eye"
             }
         }
+    },
+    created() {
+        let token = localStorage.getItem("user")
+        if (token) {
+            return this.$router.push({ path: '/question' }); // Go back to previous page in history stack
+        }
     }
 }
 </script>
