@@ -1,9 +1,7 @@
 <script>
 export default {
     name: 'NavBar',
-    props: {
-        userLoggedIn: Boolean,
-    },
+    props: ['userLoggedIn'],
     data() {
         return {
             search: ''
@@ -11,7 +9,7 @@ export default {
     },
     methods: {
         searchQuestion() {
-            this.$router.push({ path: `/question`, query: { search: this.search } }) // search
+            this.$router.push({ path: `/question`, query: { searchPost: this.search } }) // search
         }
     }
 }

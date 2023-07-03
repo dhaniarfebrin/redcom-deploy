@@ -22,16 +22,24 @@ export default {
                     this.categoriesData = response.data.data
                 })
                 .catch(err => {
-                    console.log("Error fetching category questions", err)
+                    if (err.response.status === 404) {
+                        this.categoriesData = []
+                    } else {
+                        console.log("Error fetching question questions", err.response.status)
+                    }
                 })
         },
         getQuestions() {
-            axios.get('http://localhost:5000/api/posts/')
+            axios.get('http://localhost:5000/api/homepage/')
                 .then(response => {
                     this.questionsData = response.data.data
                 })
                 .catch(err => {
-                    console.log("Error fetching question questions", err)
+                    if (err.response.status === 404) {
+                        this.questionsData = []
+                    } else {
+                        console.log("Error fetching question questions", err.response.status)
+                    }
                 })
         },
         sortQuestion() {
@@ -46,22 +54,38 @@ export default {
                         console.log("Error fetching question questions", err.response.status)
                     }
                 })
+        },
+        searchQuestion() {
+            axios.get(`http://localhost:5000/api/homepage/search?searchPost=${this.$route.query.searchPost}`)
+                .then(response => {
+                    this.questionsData = response.data.data
+                })
+                .catch(err => {
+                    if (err.response.status === 404) {
+                        this.questionsData = []
+                    } else {
+                        console.log("Error fetching question questions", err.response.status)
+                    }
+                })
         }
     },
-    mounted() {
+    beforeMount() {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
 
         this.getCategories()
-
         if (this.$route.query.categoryPost) {
-            this.sortQuestion()
-        } else {
-            this.getQuestions()
+            return this.sortQuestion()
+        } else if (this.$route.query.searchPost) {
+            return this.searchQuestion()
+        }
+        else {
+            return this.getQuestions()
         }
     },
     watch: {
-        '$route.query': 'sortQuestion',
+        '$route.query.categoryPost': 'sortQuestion',
+        '$route.query.searchPost': 'searchQuestion',
     }
 }
 </script>
@@ -98,11 +122,7 @@ export default {
                                 </div>
                             </div>
                             <!-- end have question component -->
-
-                            <div v-if="questionsData[0] === 'Empty'">
-                                <h2>kosong</h2>
-                            </div>
-                            <div v-else>
+                            <div>
                                 <QuestionCard v-for="question in questionsData" :key="question._id" :question="question" />
                             </div>
 
