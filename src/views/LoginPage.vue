@@ -9,7 +9,8 @@ export default {
         return {
             passwordFieldType: "password",
             classShowHide: "bi bi-eye-slash",
-            dataLogin: {}
+            dataLogin: {},
+            messageError: ''
         }
     },
     methods: {
@@ -18,7 +19,7 @@ export default {
                 this.passwordFieldType = "password"
                 this.classShowHide = "bi bi-eye-slash"
             } else {
-                this.passwordFieldType =  "text"
+                this.passwordFieldType = "text"
                 this.classShowHide = "bi bi-eye"
             }
         },
@@ -27,10 +28,11 @@ export default {
                 .then(response => {
                     const token = response.data.access_token
                     localStorage.setItem("user", token);
-                    this.$router.push({path: '/question'})
+                    this.$router.push({ path: '/question' })
                 })
                 .catch(err => {
                     if (err.response.status === 401) {
+                        this.messageError = err.response.data.message
                         console.log("Error fetching: ", err.response.data.message)
                     } else {
                         console.log("Error fetching", err.response.status)
@@ -47,16 +49,28 @@ export default {
             <h3 class="fw-bold">Welcome <span class="text-danger">Back</span></h3>
             <p class="text-center">Get answers in minutes<br>so you can complete your tasks faster.</p>
             <div class="form-login w-25 mt-4">
+
+                <!-- alert -->
+                <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert" v-if="messageError">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <div class="m-0">
+                        {{ messageError }}
+                    </div>
+                </div>
+
                 <form action="#" v-on:submit.prevent="login">
                     <div class="form-group">
                         <label for="" class="form-label">Email</label>
-                        <input type="email" v-model="dataLogin.email" class="form-control rounded-pill bg-body-secondary" required>
+                        <input type="email" v-model="dataLogin.email" class="form-control rounded-pill bg-body-secondary"
+                            required>
                     </div>
                     <div class="form-group mt-3">
                         <label for="" class="form-label">Password</label>
                         <div class="input-group mb-3">
-                            <input required :type="passwordFieldType" v-model="dataLogin.password" class="form-control rounded-start-pill bg-body-secondary">
-                            <button type="button" class="bg-body-secondary input-group-text rounded-end-pill" @click="togglePasswordFieldType">
+                            <input required :type="passwordFieldType" v-model="dataLogin.password"
+                                class="form-control rounded-start-pill bg-body-secondary">
+                            <button type="button" class="bg-body-secondary input-group-text rounded-end-pill"
+                                @click="togglePasswordFieldType">
                                 <i :class="classShowHide"></i>
                             </button>
                         </div>
@@ -65,7 +79,6 @@ export default {
                 </form>
             </div>
             <span class="mt-4">Don't have an account? <router-link to="/register" class="text-danger">Register
-                    Here</router-link></span>
-        </div>
+                Here</router-link></span>
     </div>
-</template>
+</div></template>
