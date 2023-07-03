@@ -1,6 +1,7 @@
 <script>
 export default {
-    name: "CommentComponent"
+    name: "CommentComponent",
+    props: ['comment']
 }
 </script>
 
@@ -12,10 +13,8 @@ export default {
             </div>
             <div class="ms-3">
                 <div class="d-flex flex-column">
-                    <span class="fw-bold">Dhaniar Febrin</span>
-                    <p class="form-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta vero culpa porro.
-                        Veniam sed quibusdam esse commodi ipsam. Illo facilis earum vitae magnam qui aperiam molestias, fuga
-                        iste eum numquam.</p>
+                    <span class="">{{comment.username}}</span>
+                    <p class="form-text">{{comment.text}}</p>
                 </div>
             </div>
         </div>

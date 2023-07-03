@@ -10,25 +10,36 @@ export default {
     data() {
         return {
             userLoggedIn: Boolean,
-            questionData: Object
+            questionData: {},
+            commentsData: []
         }
     },
     methods: {
-        getSpecificQuestion() {
-            axios.get(`http://localhost:5000/api/posts/${this.$route.params.id}`)
-                .then(response => {
-                    this.questionData = response.data.data
-                })
-                .catch(err => {
-                    console.log("Error fetching category questions", err)
-                })
+        setQuestionData(data) {
+            this.questionData = data
+        },
+        setCommentsData(data) {
+            this.commentsData = data
         }
     },
-    mounted() {
+    beforeMount() {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
 
-        this.getSpecificQuestion()
+        axios.get(`http://localhost:5000/api/posts/${this.$route.params.id}`)
+            .then(response => {
+                this.setQuestionData(response.data.data)
+            }).catch(err => {
+                console.log(err);
+            })
+
+        axios.get(`http://localhost:5000/api/homepage/comments?postId=${this.$route.params.id}`)
+            .then(response => {
+                this.setCommentsData(response.data.data)
+                console.log(response);
+            }).catch(err => {
+                console.log(err);
+            })
     }
 }
 </script>
@@ -51,11 +62,11 @@ export default {
                                                 alt="">
                                         </div>
                                         <div class="ms-3 d-flex flex-column justify-content-center">
-                                            <span class="fs-5 fw-bold">Dhaniar Febrin</span>
+                                            <span class="fs-5 fw-bold">{{ questionData.user_id.username }}</span>
                                             <span class="d-flex">
                                                 <p class="fw-light form-text m-0">{{ questionData.crdAt }}</p>
                                                 <span
-                                                    class="ms-2 fw-light badge rounded-pill text-bg-secondary">Programming</span>
+                                                    class="ms-2 fw-light badge rounded-pill text-bg-secondary">{{ questionData.kategori_id.kategori }}</span>
                                             </span>
                                         </div>
                                     </div>
@@ -79,10 +90,7 @@ export default {
                     <div class="border rounded bg-white mt-4 p-3">
                         <h5>Comments</h5>
 
-                        <CommentComponent />
-                        <CommentComponent />
-                        <CommentComponent />
-                        <CommentComponent />
+                        <CommentComponent v-for="comment in commentsData" :key="comment._id" :comment="comment"  />
 
                     </div>
                 </div>
