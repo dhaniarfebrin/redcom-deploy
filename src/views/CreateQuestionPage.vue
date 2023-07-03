@@ -14,7 +14,7 @@ export default {
     },
     methods: {
         getCategories() {
-            axios.get('http://localhost:5000/api/kategori')
+            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/kategori`)
                 .then(response => {
                     this.categories = response.data.data
                 })

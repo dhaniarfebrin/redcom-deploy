@@ -17,7 +17,7 @@ export default {
     },
     methods: {
         getCategories() {
-            axios.get(`${import.meta.env.VITE_APP_ROOT_API}/api/kategori`)
+            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/kategori`)
                 .then(response => {
                     this.categoriesData = response.data.data
                 })
@@ -30,7 +30,7 @@ export default {
                 })
         },
         getQuestions() {
-            axios.get(`${import.meta.env.VITE_APP_ROOT_API}/api/homepage/`)
+            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/`)
                 .then(response => {
                     this.questionsData = response.data.data
                 })

@@ -1,5 +1,6 @@
 <script setup>
-import NavBar from '../components/NavBar.vue';
+// import NavBar from '../components/NavBar.vue';
+import axios from 'axios'
 </script>
 
 <script>
@@ -7,7 +8,8 @@ export default {
     data() {
         return {
             passwordFieldType: "password",
-            classShowHide: "bi bi-eye-slash"
+            classShowHide: "bi bi-eye-slash",
+            dataLogin: {}
         }
     },
     methods: {
@@ -19,6 +21,21 @@ export default {
                 this.passwordFieldType =  "text"
                 this.classShowHide = "bi bi-eye"
             }
+        },
+        login() {
+            axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/auth/login`, this.dataLogin)
+                .then(response => {
+                    const token = response.data.access_token
+                    localStorage.setItem("user", token);
+                    this.$router.push({path: '/question'})
+                })
+                .catch(err => {
+                    if (err.response.status === 401) {
+                        console.log("Error fetching: ", err.response.data.message)
+                    } else {
+                        console.log("Error fetching", err.response.status)
+                    }
+                })
         }
     }
 }
@@ -30,15 +47,15 @@ export default {
             <h3 class="fw-bold">Welcome <span class="text-danger">Back</span></h3>
             <p class="text-center">Get answers in minutes<br>so you can complete your tasks faster.</p>
             <div class="form-login w-25 mt-4">
-                <form action="">
+                <form action="#" v-on:submit.prevent="login">
                     <div class="form-group">
                         <label for="" class="form-label">Email</label>
-                        <input type="email" class="form-control rounded-pill bg-body-secondary">
+                        <input type="email" v-model="dataLogin.email" class="form-control rounded-pill bg-body-secondary" required>
                     </div>
                     <div class="form-group mt-3">
                         <label for="" class="form-label">Password</label>
                         <div class="input-group mb-3">
-                            <input :type="passwordFieldType" class="form-control rounded-start-pill bg-body-secondary">
+                            <input required :type="passwordFieldType" v-model="dataLogin.password" class="form-control rounded-start-pill bg-body-secondary">
                             <button type="button" class="bg-body-secondary input-group-text rounded-end-pill" @click="togglePasswordFieldType">
                                 <i :class="classShowHide"></i>
                             </button>
