@@ -22,7 +22,7 @@ export default {
             this.commentsData = data
         }
     },
-    beforeMount() {
+    created() {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
 
@@ -36,7 +36,6 @@ export default {
         axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/comments?postId=${this.$route.params.id}`)
             .then(response => {
                 this.setCommentsData(response.data.data)
-                console.log(response);
             }).catch(err => {
                 console.log(err);
             })
@@ -62,7 +61,7 @@ export default {
                                                 alt="">
                                         </div>
                                         <div class="ms-3 d-flex flex-column justify-content-center">
-                                            <span class="fs-5 fw-bold">{{ questionData.user_id.username }}</span>
+                                            <span class="fs-5">{{ questionData.user_id.username }}</span>
                                             <span class="d-flex">
                                                 <p class="fw-light form-text m-0">{{ questionData.crdAt }}</p>
                                                 <span
@@ -73,7 +72,7 @@ export default {
                                     <p class="mt-3 fw-superlight">{{ questionData.content }}</p>
                                     <div class="d-flex mt-4 border border-0 pt-3 border-top" v-if="userLoggedIn">
                                         <input type="text" class="form-control bg-body-secondary rounded-pill"
-                                            placeholder="write answer or comment here">
+                                            placeholder="write answer here">
                                         <button type="button" class="btn btn-dark rounded-circle ms-1"><i
                                                 class="bi bi-send-fill"></i></button>
                                     </div>
@@ -88,7 +87,7 @@ export default {
                     </div>
 
                     <div class="border rounded bg-white mt-4 p-3">
-                        <h5>Comments</h5>
+                        <h5>Answers</h5>
 
                         <CommentComponent v-for="comment in commentsData" :key="comment._id" :comment="comment"  />
 
