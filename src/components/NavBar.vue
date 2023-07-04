@@ -1,5 +1,5 @@
 <script>
-// import jwtdecode from "vue-jwt-decode";
+import VueJwtDecode from "vue-jwt-decode";
 import axios from 'axios'
 
 export default {
@@ -8,7 +8,8 @@ export default {
     data() {
         return {
             search: '',
-            username: ''
+            username: '',
+            isAdmin: Boolean
         }
     },
     methods: {
@@ -42,6 +43,13 @@ export default {
         }
     },
     created() {
+        if (this.userLoggedIn) {
+            const token = localStorage.getItem("user")
+            const decode = VueJwtDecode.decode(token)
+
+            this.isAdmin = decode.is_admin ? true : false
+        }
+        
         this.getUserDetail()
     }
 }
@@ -76,7 +84,10 @@ export default {
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto" v-else>
-                    <li class="nav-item d-flex align-items-center me-2">
+                    <li class="nav-item d-flex align-items-center me-2" v-if="isAdmin">
+                        <router-link to="/create-question" class="btn rounded-pill px-4">Dashboard</router-link>
+                    </li>
+                    <li class="nav-item d-flex align-items-center me-2" v-else>
                         <router-link to="/create-question" class="btn btn-dark rounded-pill px-4">Ask Question</router-link>
                     </li>
                     <li class="nav-item dropdown">

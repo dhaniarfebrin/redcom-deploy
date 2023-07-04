@@ -1,7 +1,15 @@
 <script>
 export default {
     name: "CommentComponent",
-    props: ['comment']
+    data() {
+        return {
+            is_admin: Boolean
+        }
+    },
+    props: ['comment'],
+    mounted() {
+        this.is_admin = this.comment.is_admin ? true : false
+    }
 }
 </script>
 
@@ -13,7 +21,10 @@ export default {
             </div>
             <div class="ms-3">
                 <div class="d-flex flex-column">
-                    <span class="">{{comment.username}}</span>
+                    <div class="d-flex align-items-center">
+                        <span class="">{{comment.username}}</span>
+                        <span class="badge rounded-pill text-bg-danger fw-light ms-1" v-if="is_admin">Admin</span>
+                    </div>
                     <p class="form-text">{{comment.text}}</p>
                 </div>
             </div>

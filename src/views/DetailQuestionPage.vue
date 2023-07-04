@@ -35,24 +35,8 @@ export default {
         },
         getUserId() {
             if (this.token) {
-                // const config = {
-                //     headers: {
-                //         Authorization: `Bearer ${this.token}`
-                //     }
-                // }
-
                 const decoded = VueJwtDecode.decode(this.token);
                 this.createComment.userId = decoded.aud
-
-
-                // axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/auth/data`, config)
-                //     .then(response => {
-                //         this.user_id =
-                //             this.createComment.userId = response.data.data._id;
-                //     })
-                //     .catch(err => {
-                //         console.log("Error fetching category questions", err)
-                //     })
             }
         },
         createCommentPost() {
@@ -66,7 +50,6 @@ export default {
                 axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/new-comment`, this.createComment, config)
                     .then(response => {
                         this.getCommentPost()
-                        console.log(this.createComment);
                     })
                     .catch(error => {
                         if (error.response) {
@@ -117,7 +100,7 @@ export default {
                                         <div class="ms-3 d-flex flex-column justify-content-center">
                                             <span class="fs-5">{{ questionData.user_id.username }}</span>
                                             <span class="d-flex">
-                                                <p class="fw-light form-text m-0">{{ questionData.crdAt }}</p>
+                                                <p class="fw-light form-text m-0">{{ questionData.date_created }}</p>
                                                 <span class="ms-2 fw-light badge rounded-pill text-bg-secondary">{{
                                                     questionData.kategori_id.kategori }}</span>
                                             </span>
