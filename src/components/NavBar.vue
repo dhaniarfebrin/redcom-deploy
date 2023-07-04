@@ -21,20 +21,21 @@ export default {
         },
         async getUserDetail() {
             try {
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("user")}`
+                if (localStorage.getItem("user")) {
+                    const config = {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem("user")}`
+                        }
                     }
+    
+                    await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/auth/data`, config)
+                    .then(response => {
+                        this.username = response.data.data.username
+                    })
+                    .catch(err => {
+                        console.log("Error fetching category questions", err)
+                    })
                 }
-
-                await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/auth/data`, config)
-                .then(response => {
-                    this.username = response.data.data.username
-                })
-                .catch(err => {
-                    console.log("Error fetching category questions", err)
-                })
-                
             } catch (err) {
                 console.log(err);
             }
