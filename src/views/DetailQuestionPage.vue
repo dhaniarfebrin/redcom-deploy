@@ -2,6 +2,7 @@
 import NavBar from '../components/NavBar.vue';
 import CommentComponent from '../components/CommentComponent.vue';
 import axios from 'axios'
+import VueJwtDecode from "vue-jwt-decode";
 </script>
 
 <script>
@@ -34,20 +35,24 @@ export default {
         },
         getUserId() {
             if (this.token) {
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${this.token}`
-                    }
-                }
+                // const config = {
+                //     headers: {
+                //         Authorization: `Bearer ${this.token}`
+                //     }
+                // }
 
-                axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/auth/data`, config)
-                    .then(response => {
-                        this.user_id =
-                            this.createComment.userId = response.data.data._id;
-                    })
-                    .catch(err => {
-                        console.log("Error fetching category questions", err)
-                    })
+                const decoded = VueJwtDecode.decode(this.token);
+                this.createComment.userId = decoded.aud
+
+
+                // axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/auth/data`, config)
+                //     .then(response => {
+                //         this.user_id =
+                //             this.createComment.userId = response.data.data._id;
+                //     })
+                //     .catch(err => {
+                //         console.log("Error fetching category questions", err)
+                //     })
             }
         },
         createCommentPost() {
@@ -119,11 +124,13 @@ export default {
                                         </div>
                                     </div>
                                     <p class="mt-3 fw-superlight">{{ questionData.content }}</p>
-                                    <div class="d-flex mt-4 border border-0 pt-3 border-top" v-if="userLoggedIn">
-                                        <input type="text" class="form-control bg-body-secondary rounded-pill"
-                                            placeholder="write answer here" v-model="createComment.text" name="text">
-                                        <button type="button" class="btn btn-dark rounded-circle ms-1"
-                                            @click="createCommentPost"><i class="bi bi-send-fill"></i></button>
+                                    <div class="mt-4 border border-0 pt-3 border-top" v-if="userLoggedIn">
+                                        <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex">
+                                            <input type="text" class="form-control bg-body-secondary rounded-pill"
+                                                placeholder="write answer here" v-model="createComment.text" name="text">
+                                            <button type="submit" class="btn btn-dark rounded-circle ms-1"><i
+                                                    class="bi bi-send-fill"></i></button>
+                                        </form>
                                     </div>
                                     <div class="d-flex mt-4 border border-0 pt-3 border-top justify-content-center align-items-center"
                                         v-else>
