@@ -54,17 +54,19 @@ export default {
             if (this.token) {
                 const config = {
                     headers: {
-                        Authorization: `Bearer ${this.token}`
+                        Authorization: `Bearer ${localStorage.getItem("user")}`
                     }
                 }
 
                 axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/new-comment`, this.createComment, config)
                     .then(response => {
                         this.getCommentPost()
-                        console.log(response);
+                        console.log(this.createComment);
                     })
-                    .catch(err => {
-                        console.log("Error fetching category questions", err)
+                    .catch(error => {
+                        if (error.response) {
+                            console.log(error.response.data)
+                        }
                     })
             }
         }
@@ -120,10 +122,11 @@ export default {
                                     <div class="d-flex mt-4 border border-0 pt-3 border-top" v-if="userLoggedIn">
                                         <input type="text" class="form-control bg-body-secondary rounded-pill"
                                             placeholder="write answer here" v-model="createComment.text" name="text">
-                                        <button type="button" class="btn btn-dark rounded-circle ms-1" @click="createCommentPost"><i
-                                                class="bi bi-send-fill"></i></button>
+                                        <button type="button" class="btn btn-dark rounded-circle ms-1"
+                                            @click="createCommentPost"><i class="bi bi-send-fill"></i></button>
                                     </div>
-                                    <div class="d-flex mt-4 border border-0 pt-3 border-top justify-content-center align-items-center" v-else>
+                                    <div class="d-flex mt-4 border border-0 pt-3 border-top justify-content-center align-items-center"
+                                        v-else>
                                         <p class="m-0 me-2">Wanna answering the question?</p>
                                         <router-link to="/login" class="btn btn-dark rounded-pill px-3">Login</router-link>
                                     </div>
