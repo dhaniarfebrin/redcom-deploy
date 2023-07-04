@@ -19,6 +19,7 @@ export default {
         <div class="d-flex">
             <div class="d-flex align-items-center">
                 <span class="fw-light badge rounded-pill text-bg-secondary">{{ question.kategori_id.kategori }}</span>
+                <span class="ms-2 form-text m-0">{{ question.crdAt }}</span>
             </div>
             <router-link :to="`/question/${question._id}`" class="ms-auto btn btn-outline-dark rounded-pill px-4">See</router-link>
         </div>

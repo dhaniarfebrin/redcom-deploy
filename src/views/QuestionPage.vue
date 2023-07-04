@@ -114,7 +114,7 @@ export default {
                         <div class="border rounded shadow-sm">
 
                             <!-- have question component -->
-                            <div class="d-flex flex-column p-5">
+                            <div class="d-flex flex-column p-5" v-if="!userLoggedIn">
                                 <div class="px-3">
                                     <h1 class="fs-1 fw-semibold">Have a <span class="text-danger">Question</span>?</h1>
                                     <div class="">

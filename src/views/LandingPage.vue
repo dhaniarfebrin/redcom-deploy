@@ -21,6 +21,10 @@ export default {
     created() {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
+
+        if (token) {
+            return this.$router.push({ path: '/question' })
+        }
     },
     beforeMount() {
         axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/kategori`)

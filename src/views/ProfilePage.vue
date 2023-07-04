@@ -11,7 +11,9 @@ export default {
         return {
             isVisitor: Boolean,
             userLoggedIn: Boolean,
-            userData: {}
+            userData: {},
+            userQuestions: [],
+            sumQuestion: 0
         }
     },
     methods: {
@@ -36,16 +38,35 @@ export default {
             }
         },
         async getUserQuestions() {
+            try {
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("user")}`
+                    }
+                }
 
+                await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/auth/post`, config)
+                    .then(response => {
+                        this.userQuestions = response.data.data
+                        this.sumQuestion = this.userQuestions.length
+                    })
+                    .catch(err => {
+                        console.log("Error fetching category questions", err)
+                    })
+
+            } catch (err) {
+                console.log(err);
+            }
         }
     },
     created() {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
         this.isVisitor = false
+        this.getUserDetail()
     },
     mounted() {
-        this.getUserDetail()
+        this.getUserQuestions()
     }
 }
 </script>
@@ -75,20 +96,18 @@ export default {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5">
-                    <div class="d-flex">
-                        <h5>My Questions</h5>
-                        <div class="ms-2">
-                            <span class="badge rounded-pill text-bg-dark fw-light">50</span>
+                <div class="col-md">
+                    <div class="border rounded-3 shadow p-5">
+                        <div class="d-flex">
+                            <h5>My Questions</h5>
+                            <div class="ms-2">
+                                <span class="badge rounded-pill text-bg-dark fw-light">{{ sumQuestion }}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-3">
-                        <div class="d-flex flex-column">
-                            <!-- <QuestionCard />
-                           <QuestionCard />
-                           <QuestionCard />
-                           <QuestionCard />
-                           <QuestionCard /> -->
+                        <div class="mt-3">
+                            <div class="d-flex flex-column">
+                                <QuestionCard v-for="question in userQuestions" :key="question._id" :question="question"  />
+                            </div>
                         </div>
                     </div>
                 </div>
