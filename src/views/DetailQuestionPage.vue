@@ -92,7 +92,7 @@ export default {
     },
     mounted() {
         this.getUserId()
-        this.createComment.postId = this.questionData._id
+        this.createComment.postId = this.$route.params.id
     }
 }
 </script>
