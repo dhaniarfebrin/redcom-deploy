@@ -22,7 +22,7 @@ export default {
             <div class="ms-3">
                 <div class="d-flex flex-column">
                     <div class="d-flex align-items-center">
-                        <span class="">{{comment.username}}</span>
+                        <span class="">{{comment?.username}}</span>
                         <span class="badge rounded-pill text-bg-danger fw-light ms-1" v-if="is_admin">Admin</span>
                     </div>
                     <p class="form-text">{{comment.text}}</p>

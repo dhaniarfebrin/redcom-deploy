@@ -89,7 +89,7 @@ export default {
                         <p class="text-secondary m-0">{{ userData.email }}</p>
                         <span class="form-text"><i class="bi bi-calendar-date"></i> {{ userData.crdAt }}</span>
                         <div class="d-flex flex-column mt-3" v-if="!isVisitor">
-                            <router-link class="btn btn-secondary rounded-pill px-4" :to="`/edit-profile/${userData._id}`">
+                            <router-link class="btn btn-secondary rounded-pill px-4" :to="`/edit-profile`">
                                 Edit Profile
                             </router-link>
                             <!-- <button class="btn btn-outline-danger rounded-pill px-4 mt-2">Change Password</button> -->
@@ -107,6 +107,9 @@ export default {
                         <div class="mt-3">
                             <div class="d-flex flex-column">
                                 <QuestionCard v-for="question in userQuestions" :key="question._id" :question="question"  />
+                                <div v-if="!userQuestions[0]" class="mt-3">
+                                    <p class="text-center">No posts yet</p>
+                                </div>
                             </div>
                         </div>
                     </div>

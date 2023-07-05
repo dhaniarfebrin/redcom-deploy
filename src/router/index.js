@@ -53,7 +53,7 @@ const router = createRouter({
       component: ProfilePage
     },
     {
-      path: '/edit-profile/:id', // param id
+      path: '/edit-profile', // param id
       name: 'edit-profile',
       component: EditProfilePage
     },

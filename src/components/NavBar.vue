@@ -129,7 +129,7 @@ export default {
 
 <style scoped>
 input {
-    width: 50vh !important;
+    width: 30vw !important;
 }
 
 .img-user-comment {

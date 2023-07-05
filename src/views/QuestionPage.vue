@@ -70,6 +70,7 @@ export default {
                 .catch(err => {
                     if (err.response.status === 404) {
                         this.questionsData = []
+                        this.questionsData = false
                     } else {
                         console.log("Error fetching question questions", err.response.status)
                     }
@@ -82,6 +83,7 @@ export default {
     },
     mounted() {
         this.getCategories()
+
         if (this.$route.query.categoryPost) {
             return this.sortQuestion()
         } else if (this.$route.query.searchPost) {
@@ -137,7 +139,10 @@ export default {
                                 <Suspense>
                                     <template #default>
                                         <div>
-                                            <QuestionCard v-for="question in questionsData" :key="question._id" :question="question" />
+                                            <div v-if="questionsData === false">
+                                                <p class="text-center d-flex align-items-center justify-content-center m-0"><i class="bi bi-x-square me-2"></i> not found</p>
+                                            </div>
+                                            <QuestionCard v-else v-for="question in questionsData" :key="question._id" :question="question" />
                                         </div>
                                     </template>
                                     
@@ -146,9 +151,11 @@ export default {
                                     </template>
                                 </Suspense>
                             </Transition>
-                                
+
+                            
                         </div>
                     </div>
+
                 </div>
 
             </div>  

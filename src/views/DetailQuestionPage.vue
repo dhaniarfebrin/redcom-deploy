@@ -31,21 +31,25 @@ export default {
         setCommentsData(data) {
             this.commentsData = data
         },
-        async getCommentPost() {
-            await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/comments?postId=${this.$route.params.id}`)
+        getCommentPost() {
+            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/comments?postId=${this.$route.params.id}`)
                 .then(response => {
                     this.setCommentsData(response.data.data)
                 }).catch(err => {
-                    console.log(err);
+                    if (err.response.status === 404) {
+                        this.commentsData = false
+                    } else {
+                        console.log("Error fetching question questions", err.response.status)
+                    }
                 })
         },
-        async getUserId() {
+        getUserId() {
             if (this.token) {
-                const decoded = await VueJwtDecode.decode(this.token);
+                const decoded = VueJwtDecode.decode(this.token);
                 this.createComment.userId = decoded.aud
             }
         },
-        async createCommentPost() {
+        createCommentPost() {
             if (this.token) {
                 const config = {
                     headers: {
@@ -53,7 +57,7 @@ export default {
                     }
                 }
 
-                await axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/new-comment`, this.createComment, config)
+                axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/new-comment`, this.createComment, config)
                     .then(response => {
                         this.getCommentPost()
                     })
@@ -104,16 +108,18 @@ export default {
                                                 alt="">
                                         </div>
                                         <div class="ms-3 d-flex flex-column justify-content-center">
-                                            <span class="fs-5">{{ questionData.user_id ? questionData.user_id.username : "{Deleted User}" }}</span>
+                                            <span class="fs-5">{{ questionData.user_id ? questionData.user_id.username :
+                                                "{Deleted User}" }}</span>
                                             <span class="d-flex">
-                                                <p class="fw-light form-text m-0">{{ questionData.date_created }} {{ questionData.time }}</p>
+                                                <p class="fw-light form-text m-0">{{ questionData.date_created }} {{
+                                                    questionData.time }}</p>
                                                 <span class="ms-2 fw-light badge rounded-pill text-bg-secondary">{{
-                                                    questionData.kategori_id.kategori }}</span>
+                                                    questionData.kategori_id?.kategori }}</span>
                                             </span>
                                         </div>
                                     </div>
-                                    <p class="mt-3 fw-superlight">{{ questionData.content }}</p>
-                                    <div class="mt-4 border border-0 pt-3 border-top" v-if="userLoggedIn">
+                                    <p class="mt-4 fw-superlight">{{ questionData.content }}</p>
+                                    <div class="mt-3 border border-0 pt-3 border-top" v-if="userLoggedIn">
                                         <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex">
                                             <input type="text" class="form-control bg-body-secondary rounded-pill"
                                                 placeholder="write answer here" v-model="createComment.text" name="text">
@@ -121,7 +127,7 @@ export default {
                                                     class="bi bi-send-fill"></i></button>
                                         </form>
                                     </div>
-                                    <div class="d-flex mt-4 border border-0 pt-3 border-top justify-content-center align-items-center"
+                                    <div class="d-flex mt-3 border border-0 pt-3 border-top justify-content-center align-items-center"
                                         v-else>
                                         <p class="m-0 me-2">Wanna answering the question?</p>
                                         <router-link to="/login" class="btn btn-dark rounded-pill px-3">Login</router-link>
@@ -135,7 +141,8 @@ export default {
                     <div class="border rounded bg-white mt-4 p-3">
                         <h5>Answers</h5>
 
-                        <CommentComponent v-for="comment in commentsData" :key="comment._id" :comment="comment" />
+                        <div v-if="commentsData == false" class="text-center m-0 my-5">No Answers yet</div>
+                        <CommentComponent v-else v-for="comment in commentsData" :key="comment._id" :comment="comment" />
 
                     </div>
                 </div>
