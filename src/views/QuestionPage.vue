@@ -1,13 +1,20 @@
-<script setup>
+<script>
 import NavBar from '../components/NavBar.vue';
 import CategoryQuestion from '../components/CategoryQuestion.vue';
 import QuestionCard from '../components/QuestionCard.vue';
 import axios from 'axios'
-</script>
+import { KeepAlive, Suspense, TransitionGroup } from 'vue';
 
-<script>
 export default {
     name: 'QuestionPage',
+    components: {
+        NavBar,
+        CategoryQuestion,
+        QuestionCard,
+        KeepAlive,
+        Suspense,
+        TransitionGroup
+    },
     data() {
         return {
             categoriesData: [],
@@ -16,8 +23,8 @@ export default {
         }
     },
     methods: {
-        getCategories() {
-            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/kategori`)
+        async getCategories() {
+            await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/kategori`)
                 .then(response => {
                     this.categoriesData = response.data.data
                 })
@@ -29,8 +36,8 @@ export default {
                     }
                 })
         },
-        getQuestions() {
-            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/`)
+        async getQuestions() {
+            await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/`)
                 .then(response => {
                     this.questionsData = response.data.data
                 })
@@ -42,8 +49,8 @@ export default {
                     }
                 })
         },
-        sortQuestion() {
-            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/sort-kategori?kategoriPost=${this.$route.query.categoryPost}`)
+        async sortQuestion() {
+            await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/sort-kategori?kategoriPost=${this.$route.query.categoryPost}`)
                 .then(response => {
                     this.questionsData = response.data.data
                 })
@@ -55,8 +62,8 @@ export default {
                     }
                 })
         },
-        searchQuestion() {
-            axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/search?searchPost=${this.$route.query.searchPost}`)
+        async searchQuestion() {
+            await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/search?searchPost=${this.$route.query.searchPost}`)
                 .then(response => {
                     this.questionsData = response.data.data
                 })
@@ -98,15 +105,17 @@ export default {
             <div class="d-flex flex-column align-items-center">
 
                 <!-- category -->
-                <div class="mw-50 category mt-4">
-                    <div class="row">
-                        <!-- component category -->
-                        <div class="col-md-2" v-for="category in categoriesData" :key="category._id">
-                            <CategoryQuestion :category="category" />
+                <KeepAlive>
+                    <div class="mw-50 category mt-4">
+                        <div class="row">
+                            <!-- component category -->
+                            <div class="col-md-2" v-for="category in categoriesData" :key="category._id">
+                                <CategoryQuestion :category="category" />
+                            </div>
+                            <!-- component category -->
                         </div>
-                        <!-- component category -->
                     </div>
-                </div>
+                </KeepAlive>
                 <!-- end category -->
 
                 <div class="mw-50 row g-0 mt-5">
@@ -123,10 +132,21 @@ export default {
                                 </div>
                             </div>
                             <!-- end have question component -->
-                            <div>
-                                <QuestionCard v-for="question in questionsData" :key="question._id" :question="question" />
-                            </div>
-
+                            
+                            <Transition name="fade">
+                                <Suspense>
+                                    <template #default>
+                                        <div>
+                                            <QuestionCard v-for="question in questionsData" :key="question._id" :question="question" />
+                                        </div>
+                                    </template>
+                                    
+                                    <template #fallback>
+                                        <h2>wait bang....</h2>
+                                    </template>
+                                </Suspense>
+                            </Transition>
+                                
                         </div>
                     </div>
                 </div>
