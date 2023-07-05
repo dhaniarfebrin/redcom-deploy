@@ -120,7 +120,7 @@ export default {
 
                 <div class="mw-50 row g-0 mt-5">
                     <div class="col-md-12">
-                        <div class="border rounded shadow-sm">
+                        <div class="border rounded-4 shadow-sm">
 
                             <!-- have question component -->
                             <div class="d-flex flex-column p-5" v-if="!userLoggedIn">

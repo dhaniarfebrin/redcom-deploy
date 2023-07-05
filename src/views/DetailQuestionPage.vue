@@ -76,7 +76,7 @@ export default {
             }).catch(err => {
                 console.log(err);
             })
-    
+
         this.getCommentPost()
     },
     mounted() {
@@ -95,59 +95,47 @@ export default {
                 <div class="mw-50 row g-0 mt-5">
                     <div class="col-md-12">
 
-                        <KeepAlive>
-                            <div class="border rounded shadow">
-                                <div class="d-flex flex-column p-4">
-                                    <div class="card border border-0">
-                                        <div class="d-flex">
-                                            <div class="img-user rounded-circle">
-                                                <img src="https://i.pinimg.com/originals/b5/6d/9e/b56d9ed31076329211d42bd8ff340914.jpg"
-                                                    alt="">
-                                            </div>
-                                            <div class="ms-3 d-flex flex-column justify-content-center">
-                                                <span class="fs-5">{{ questionData.user_id.username }}</span>
-                                                <span class="d-flex">
-                                                    <p class="fw-light form-text m-0">{{ questionData.date_created }}</p>
-                                                    <span class="ms-2 fw-light badge rounded-pill text-bg-secondary">{{
-                                                        questionData.kategori_id.kategori }}</span>
-                                                </span>
-                                            </div>
+                        <div class="border rounded shadow">
+                            <div class="d-flex flex-column p-4">
+                                <div class="card bg-transparent border border-0">
+                                    <div class="d-flex">
+                                        <div class="img-user rounded-circle">
+                                            <img src="https://i.pinimg.com/originals/b5/6d/9e/b56d9ed31076329211d42bd8ff340914.jpg"
+                                                alt="">
                                         </div>
-                                        <p class="mt-3 fw-superlight">{{ questionData.content }}</p>
-                                        <div class="mt-4 border border-0 pt-3 border-top" v-if="userLoggedIn">
-                                            <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex">
-                                                <input type="text" class="form-control bg-body-secondary rounded-pill"
-                                                    placeholder="write answer here" v-model="createComment.text" name="text">
-                                                <button type="submit" class="btn btn-dark rounded-circle ms-1"><i
-                                                        class="bi bi-send-fill"></i></button>
-                                            </form>
+                                        <div class="ms-3 d-flex flex-column justify-content-center">
+                                            <span class="fs-5">{{ questionData.user_id ? questionData.user_id.username : "{Deleted User}" }}</span>
+                                            <span class="d-flex">
+                                                <p class="fw-light form-text m-0">{{ questionData.date_created }} {{ questionData.time }}</p>
+                                                <span class="ms-2 fw-light badge rounded-pill text-bg-secondary">{{
+                                                    questionData.kategori_id.kategori }}</span>
+                                            </span>
                                         </div>
-                                        <div class="d-flex mt-4 border border-0 pt-3 border-top justify-content-center align-items-center"
-                                            v-else>
-                                            <p class="m-0 me-2">Wanna answering the question?</p>
-                                            <router-link to="/login" class="btn btn-dark rounded-pill px-3">Login</router-link>
-                                        </div>
+                                    </div>
+                                    <p class="mt-3 fw-superlight">{{ questionData.content }}</p>
+                                    <div class="mt-4 border border-0 pt-3 border-top" v-if="userLoggedIn">
+                                        <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex">
+                                            <input type="text" class="form-control bg-body-secondary rounded-pill"
+                                                placeholder="write answer here" v-model="createComment.text" name="text">
+                                            <button type="submit" class="btn btn-dark rounded-circle ms-1"><i
+                                                    class="bi bi-send-fill"></i></button>
+                                        </form>
+                                    </div>
+                                    <div class="d-flex mt-4 border border-0 pt-3 border-top justify-content-center align-items-center"
+                                        v-else>
+                                        <p class="m-0 me-2">Wanna answering the question?</p>
+                                        <router-link to="/login" class="btn btn-dark rounded-pill px-3">Login</router-link>
                                     </div>
                                 </div>
                             </div>
-                        </KeepAlive>
-                        
+                        </div>
+
                     </div>
 
                     <div class="border rounded bg-white mt-4 p-3">
                         <h5>Answers</h5>
 
-                        <Suspense>
-                            <template #default>
-                                <TransitionGroup name="fade">
-                                    <CommentComponent v-for="comment in commentsData" :key="comment._id" :comment="comment" />
-                                </TransitionGroup>
-                            </template>
-
-                            <template #fallback>
-                                <h2>wait bang...</h2>
-                            </template>
-                        </Suspense>
+                        <CommentComponent v-for="comment in commentsData" :key="comment._id" :comment="comment" />
 
                     </div>
                 </div>

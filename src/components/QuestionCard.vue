@@ -12,14 +12,14 @@ export default {
                 <img src="https://i.pinimg.com/originals/b5/6d/9e/b56d9ed31076329211d42bd8ff340914.jpg" alt="">
             </div>
             <div class="ms-3 d-flex align-items-center">
-                <span class="fs-5">{{ question.user_id.username }}</span>
+                <span class="fs-5">{{ question.user_id ? question.user_id.username : "{Deleted User}" }}</span>
             </div>
         </div>
         <p class="mt-3 fw-superlight">{{ question.content }}</p>
         <div class="d-flex">
             <div class="d-flex align-items-center">
                 <span class="fw-light badge rounded-pill text-bg-secondary">{{ question.kategori_id.kategori }}</span>
-                <span class="ms-2 form-text m-0">{{ question.date_created }}</span>
+                <span class="ms-2 form-text m-0">{{ question.date_created }} {{ question.time }}</span>
             </div>
             <router-link :to="`/question/${question._id}`" class="ms-auto btn btn-outline-dark rounded-pill px-4">See</router-link>
         </div>
