@@ -16,7 +16,6 @@ export default {
             axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/admin/dashboard`)
                 .then(response => {
                     this.dataDashboard = response.data.data;
-                    console.log(this.dataDashboard);
                 }).catch(err => {
                     console.log(err);
                 })

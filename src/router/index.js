@@ -8,6 +8,7 @@ import CreateQuestionPage from '../views/CreateQuestionPage.vue'
 import ProfilePage from '../views/ProfilePage.vue'
 import EditProfilePage from '../views/EditProfilePage.vue'
 import PageNotFound from '../views/PageNotFound/PageNotFound.vue'
+import DashboardPage from '../views/admin/DashboardPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,7 +54,12 @@ const router = createRouter({
       component: EditProfilePage
     },
     {
-      path: '/:pathMatch(.*)', // param id
+      path: '/admin/dashboard',
+      name: 'admin-dashboard',
+      component: DashboardPage
+    },
+    {
+      path: '/:pathMatch(.*)',
       name: 'page-not-found',
       component: PageNotFound
     },

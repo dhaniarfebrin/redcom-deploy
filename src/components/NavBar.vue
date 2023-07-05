@@ -85,7 +85,7 @@ export default {
                 </ul>
                 <ul class="navbar-nav ms-auto" v-else>
                     <li class="nav-item d-flex align-items-center me-2" v-if="isAdmin">
-                        <router-link to="/create-question" class="btn rounded-pill px-4">Dashboard</router-link>
+                        <router-link to="/admin/dashboard" class="btn rounded-pill px-4">Dashboard</router-link>
                     </li>
                     <li class="nav-item d-flex align-items-center me-2" v-else>
                         <router-link to="/create-question" class="btn btn-dark rounded-pill px-4">Ask Question</router-link>
@@ -93,7 +93,7 @@ export default {
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <div class="d-flex align-items-center justify-conten-center">
+                            <div class="d-flex align-items-center justify-content-center">
                                 <div class="img-user-comment rounded-circle">
                                     <img src="https://i.pinimg.com/originals/b5/6d/9e/b56d9ed31076329211d42bd8ff340914.jpg"
                                         alt="">

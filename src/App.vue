@@ -3,7 +3,7 @@ import FooterComponent from './components/FooterComponent.vue';
 </script>
 
 <template>
-  <div class="d-flex flex-column h-100">
+  <div class="d-flex flex-column h-100 bg-body-tertiary">
     <router-view />
     <FooterComponent />
   </div>

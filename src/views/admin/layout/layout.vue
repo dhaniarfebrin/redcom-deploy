@@ -1,10 +1,39 @@
 <script setup>
 import NavBar from '../../../components/NavBar.vue'
+import axios from 'axios';
 </script>
 
 <script>
 export default {
-    name: 'Layout'
+    name: 'Layout',
+    data() {
+        return {
+            dataUser: {}
+        }
+    },
+    methods: {
+        getUserDetail() {
+            if (localStorage.getItem("user")) {
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("user")}`
+                    }
+                }
+
+                axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/auth/data`, config)
+                    .then(response => {
+                        this.dataUser = response.data.data
+                        console.log(this.dataUser);
+                    })
+                    .catch(err => {
+                        console.log("Error fetching category questions", err)
+                    })
+            }
+        }
+    },
+    mounted() {
+        this.getUserDetail()
+    }
 }
 </script>
 
@@ -21,6 +50,7 @@ export default {
                                     alt="">
                             </div>
                         </div>
+                        <h5 class="text-center mt-2">{{ dataUser.username }}</h5>
                     </div>
                     <ul class="list-group mt-3">
                         <li class="list-group-item border-0">
@@ -62,6 +92,7 @@ export default {
     width: 100%;
     height: auto;
 }
+
 .sidebar {
     width: 15vw;
     height: 100%;
