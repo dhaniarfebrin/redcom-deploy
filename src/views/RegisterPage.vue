@@ -29,7 +29,7 @@ export default {
                     this.$router.push({ path: '/login' })
                     this.$toast.success('Success to Register', {
                         duration: 4000,
-                        position: 'top-right'
+                        position: 'top'
                     })
                 })
                 .catch(err => {

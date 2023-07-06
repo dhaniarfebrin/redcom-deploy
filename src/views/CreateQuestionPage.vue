@@ -38,7 +38,7 @@ export default {
                     this.$router.push({ path: '/question' })
                     this.$toast.success('Post Added', {
                         duration: 4000,
-                        position: 'top-right'
+                        position: 'top'
                     })
                 })
                 .catch(err => {

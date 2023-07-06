@@ -31,7 +31,7 @@ export default {
                     this.$router.push({ path: '/question' })
                     this.$toast.success('Login Success', {
                         duration: 4000,
-                        position: 'top-right'
+                        position: 'top'
                     })
                 })
                 .catch(err => {

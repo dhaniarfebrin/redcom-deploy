@@ -14,9 +14,9 @@ export default {
             axios.delete(`${import.meta.env.VITE_APP_ROOT_API}api/posts/delete/${id}`)
                 .then(response => {
                     this.$emit("callGetQuestion")
-                    this.$toast.success('The Post Deleted', {
+                    this.$toast.error('The Post Deleted', {
                         duration: 3000,
-                        position: 'top-right'
+                        position: 'top'
                     })
                 })
                 .catch(err => {

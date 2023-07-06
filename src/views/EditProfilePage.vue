@@ -23,7 +23,7 @@ export default {
                     this.$router.push({ path: '/profile' })
                     this.$toast.success('Edit Success', {
                         duration: 3000,
-                        position: 'top-right'
+                        position: 'top'
                     })
                 })
                 .catch(err => {

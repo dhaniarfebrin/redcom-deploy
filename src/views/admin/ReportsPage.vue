@@ -29,16 +29,16 @@ export default {
             axios.delete(`${import.meta.env.VITE_APP_ROOT_API}api/admin/delete/${post_id}`)
                 .then(response => {
                     this.getDataReport()
-                    this.$toast.success('The Post Deleted', {
+                    this.$toast.error('The Post Deleted', {
                         duration: 3000,
-                        position: 'top-right'
+                        position: 'top'
                     })
                 })
                 .catch(err => {
                     console.log("Error", err)
                     this.$toast.error(`${error.response}`, {
                         duration: 3000,
-                        position: 'top-right'
+                        position: 'top'
                     })
                 })
         },
@@ -46,16 +46,16 @@ export default {
             axios.delete(`${import.meta.env.VITE_APP_ROOT_API}api/admin/report/delete/${id}`)
                 .then(response => {
                     this.getDataReport()
-                    this.$toast.success('The Report Rejected', {
+                    this.$toast.warning('The Report Rejected', {
                         duration: 3000,
-                        position: 'top-right'
+                        position: 'top'
                     })
                 })
                 .catch(err => {
                     console.log("Error", err)
                     this.$toast.error(`${error.response}`, {
                         duration: 3000,
-                        position: 'top-right'
+                        position: 'top'
                     })
                 })
         }

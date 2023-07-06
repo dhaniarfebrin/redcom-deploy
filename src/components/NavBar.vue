@@ -23,6 +23,10 @@ export default {
         logOut() {
             localStorage.removeItem("user");
             this.$router.push("/login");
+            this.$toast.success('Logout Success', {
+                duration: 4000,
+                position: 'top'
+            })
         },
         async getUserDetail() {
             try {
