@@ -27,7 +27,7 @@ export default {
         },
         createQuestion() {
             const config = {
-                headers: {'Authorization': `Bearer ${this.access_token}`}
+                headers: { 'Authorization': `Bearer ${this.access_token}` }
             }
 
             const decoded = VueJwtDecode.decode(this.access_token);
@@ -36,6 +36,10 @@ export default {
             axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/new-post`, this.dataNewQuestion, config)
                 .then(response => {
                     this.$router.push({ path: '/question' })
+                    this.$toast.success('Post Added', {
+                        duration: 4000,
+                        position: 'top-right'
+                    })
                 })
                 .catch(err => {
                     if (err.response.status === 401) {
@@ -64,9 +68,10 @@ export default {
                     <h6 class="fw-bold mb-2">Ask Question</h6>
                     <form action="#" v-on:submit.prevent="createQuestion">
                         <textarea name="question" id="" cols="30" rows="5"
-                            class="form-control bg-body-secondary rounded-4 mb-4"
-                            placeholder="write question here" v-model="dataNewQuestion.content"></textarea>
-                        <select name="category" class="form-select bg-body-secondary rounded-pill" id="" v-model="dataNewQuestion.kategoriId">
+                            class="form-control bg-body-secondary rounded-4 mb-4" placeholder="write question here"
+                            v-model="dataNewQuestion.content"></textarea>
+                        <select name="category" class="form-select bg-body-secondary rounded-pill" id=""
+                            v-model="dataNewQuestion.kategoriId">
                             <option selected disabled>Choose category</option>
                             <option v-for="category in categories" :key="category._id" :value="category._id">
                                 {{ category.kategori }}</option>

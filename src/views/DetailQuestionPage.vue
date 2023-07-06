@@ -63,10 +63,19 @@ export default {
                 axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/new-comment`, this.createComment, config)
                     .then(response => {
                         this.getCommentPost()
+                        this.$toast.success('Comment Added', {
+                            duration: 3000,
+                            position: 'top-right'
+                        })
+                        this.createComment.text = ''
                     })
                     .catch(error => {
                         if (error.response) {
                             console.log(error.response.data)
+                            this.$toast.error(`${error.response}`, {
+                                duration: 3000,
+                                position: 'top-right'
+                            })
                         }
                     })
             }
@@ -82,10 +91,18 @@ export default {
 
             axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/auth/report/${this.$route.params.id}`, this.reportData, config)
                 .then(response => {
-                    console.log(response.data.message);
+                    // console.log(response.data.message);
+                    this.$toast.success('This post reported', {
+                        duration: 3000,
+                        position: 'top-right'
+                    })
                 })
                 .catch(err => {
                     console.log("Error : ", err.response.data.msg)
+                    this.$toast.error(`${err.response}`, {
+                        duration: 3000,
+                        position: 'top-right'
+                    })
                 })
         }
     },

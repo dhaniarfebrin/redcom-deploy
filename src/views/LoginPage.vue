@@ -29,6 +29,10 @@ export default {
                     const token = response.data.access_token
                     localStorage.setItem("user", token);
                     this.$router.push({ path: '/question' })
+                    this.$toast.success('Login Success', {
+                        duration: 4000,
+                        position: 'top-right'
+                    })
                 })
                 .catch(err => {
                     if (err.response.status === 401) {

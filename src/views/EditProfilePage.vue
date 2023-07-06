@@ -21,6 +21,10 @@ export default {
             axios.put(`${import.meta.env.VITE_APP_ROOT_API}api/auth/edit`, this.userData, this.configRequest)
                 .then(response => {
                     this.$router.push({ path: '/profile' })
+                    this.$toast.success('Edit Success', {
+                        duration: 3000,
+                        position: 'top-right'
+                    })
                 })
                 .catch(err => {
                     if (err.response.status === 401) {

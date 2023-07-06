@@ -59,7 +59,7 @@ export default {
                     if (err.response.status === 404) {
                         this.questionsData = []
                     } else {
-                        console.log("Error fetching question questions", err.response.status)
+                        console.log("Error fetching", err.response.status)
                     }
                 })
         },
@@ -72,7 +72,7 @@ export default {
                     if (err.response.status === 404) {
                         this.questionsData = []
                     } else {
-                        console.log("Error fetching question questions", err.response.status)
+                        console.log("Error fetching", err.response.status)
                     }
                 })
         },
@@ -86,7 +86,7 @@ export default {
                         this.questionsData = []
                         this.questionsData = false
                     } else {
-                        console.log("Error fetching question questions", err.response.status)
+                        console.log("Error fetching", err.response.status)
                     }
                 })
         }

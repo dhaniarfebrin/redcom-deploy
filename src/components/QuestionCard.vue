@@ -13,8 +13,11 @@ export default {
         deletePost(id) {
             axios.delete(`${import.meta.env.VITE_APP_ROOT_API}api/posts/delete/${id}`)
                 .then(response => {
-                    // this.$router.push({ path: '/profile' })
                     this.$emit("callGetQuestion")
+                    this.$toast.success('The Post Deleted', {
+                        duration: 3000,
+                        position: 'top-right'
+                    })
                 })
                 .catch(err => {
                     console.log("Error", err)

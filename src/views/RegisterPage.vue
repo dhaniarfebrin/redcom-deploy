@@ -27,6 +27,10 @@ export default {
             axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/auth/signup`, this.dataRegister)
                 .then(response => {
                     this.$router.push({ path: '/login' })
+                    this.$toast.success('Success to Register', {
+                        duration: 4000,
+                        position: 'top-right'
+                    })
                 })
                 .catch(err => {
                     if (err.response.status === 401) {
@@ -89,7 +93,8 @@ export default {
                     <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2">Register</button>
                 </form>
             </div>
-        <span class="mt-4">Already have an account? <router-link to="/login" class="text-danger">Login
-                Here</router-link></span>
+            <span class="mt-4">Already have an account? <router-link to="/login" class="text-danger">Login
+                    Here</router-link></span>
+        </div>
     </div>
-</div></template>
+</template>
