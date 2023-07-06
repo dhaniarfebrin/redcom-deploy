@@ -4,6 +4,7 @@ import CommentComponent from '../components/CommentComponent.vue';
 import { KeepAlive, Suspense, TransitionGroup } from 'vue';
 import axios from 'axios'
 import VueJwtDecode from "vue-jwt-decode";
+import linkify from 'linkify-html'
 </script>
 
 <script>
@@ -26,6 +27,7 @@ export default {
         }
     },
     methods: {
+        linkify,
         setQuestionData(data) {
             this.questionData = data
         },
@@ -147,7 +149,7 @@ export default {
                                                 "></i></button>
                                         </div>
                                     </div>
-                                    <p class="mt-4 fw-superlight">{{ questionData.content }}</p>
+                                    <p class="mt-4 fw-superlight" v-html="linkify(questionData.content)"></p>
                                     <div class="mt-3 border border-0 pt-3 border-top" v-if="userLoggedIn">
                                         <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex">
                                             <input type="text" class="form-control bg-body-secondary rounded-pill"
@@ -202,7 +204,6 @@ export default {
             </div>
         </div>
     </div>
-    
 </template>
 
 <style scoped>
