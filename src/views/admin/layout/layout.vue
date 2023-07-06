@@ -28,7 +28,6 @@ export default {
                 axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/auth/data`, config)
                     .then(response => {
                         this.dataUser = response.data.data
-                        console.log(this.dataUser);
                     })
                     .catch(err => {
                         console.log("Error fetching category questions", err)
