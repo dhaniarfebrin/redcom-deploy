@@ -67,6 +67,9 @@ export default {
                         }
                     })
             }
+        },
+        goBack() {
+            window.history.back()
         }
     },
     created() {
@@ -100,6 +103,12 @@ export default {
                     <div class="col-md-12">
 
                         <div class="border rounded shadow">
+                            <div class="d-flex py-2 px-3 border border-bottom align-items-center">
+                                <button class="btn" @click="goBack">
+                                    <i class="bi bi-arrow-left"></i>
+                                </button>
+                                <div class="ms-1">Detail Question</div>
+                            </div>
                             <div class="d-flex flex-column p-4">
                                 <div class="card bg-transparent border border-0">
                                     <div class="d-flex">
@@ -129,7 +138,7 @@ export default {
                                     </div>
                                     <div class="d-flex mt-3 border border-0 pt-3 border-top justify-content-center align-items-center"
                                         v-else>
-                                        <p class="m-0 me-2">Wanna answering the question?</p>
+                                        <p class="m-0 me-2">want to answer the question?</p>
                                         <router-link to="/login" class="btn btn-dark rounded-pill px-3">Login</router-link>
                                     </div>
                                 </div>
