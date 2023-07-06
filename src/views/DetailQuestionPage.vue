@@ -143,7 +143,7 @@ export default {
                                                     questionData.kategori_id?.kategori }}</span>
                                             </span>
                                         </div>
-                                        <div class="ms-auto">
+                                        <div class="ms-auto" v-if="userLoggedIn">
                                             <button class="btn bg-transparent p-1 text-secondary py-0"
                                                 data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-exclamation-triangle-fill
                                                 "></i></button>
