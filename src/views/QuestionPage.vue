@@ -120,20 +120,6 @@ export default {
         <div class="mt-5">
             <div class="d-flex flex-column align-items-center">
 
-                <!-- category -->
-                <!-- <KeepAlive>
-                    <div class="mw-50 category mt-4">
-                        <div class="row">
-
-                            <div class="col-md-2" v-for="category in categoriesData" :key="category._id">
-                                <CategoryQuestion :category="category" />
-                            </div>
-
-                        </div>
-                    </div>
-                </KeepAlive> -->
-                <!-- end category -->
-
                 <div class="mw-50 row g-4 mt-5">
 
                     <!-- category -->
@@ -143,7 +129,7 @@ export default {
                             <div class="d-flex flex-column border-top mt-2">
                                 
                                 <CategoryQuestionSide v-for="category in categoriesData" @click="sortQuestionInPage(category.kategori)" :key="category._id" :category="category"/>
-                                
+                                <button class="btn btn-light bg-body-secondary mt-3" @click="getQuestions">reset</button>
                             </div>
                         </div>
                     </div>
