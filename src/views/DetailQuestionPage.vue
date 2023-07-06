@@ -21,7 +21,8 @@ export default {
             commentsData: [],
             createComment: {},
             token: '',
-            user_id: ''
+            user_id: '',
+            reportData: {}
         }
     },
     methods: {
@@ -72,7 +73,18 @@ export default {
             window.history.back()
         },
         reportPost(reason) {
+            const config = {
+                headers: { 'Authorization': `Bearer ${this.token}` }
+            }
+            this.reportData.reason = reason
 
+            axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/auth/report/${this.$route.params.id}`, this.reportData, config)
+                .then(response => {
+                    console.log(response.data.message);
+                })
+                .catch(err => {
+                    console.log("Error : ", err.response.data.msg)
+                })
         }
     },
     created() {
@@ -180,8 +192,10 @@ export default {
                 </div>
                 <div class="modal-body p-0 pb-4">
                     <div class="d-flex flex-column">
-                        <button class="btn btn-light bg-transparent" data-bs-dismiss="modal">contains inappropriate words</button>
-                        <button class="btn btn-light bg-transparent" data-bs-dismiss="modal">hate-spreaders</button>
+                        <button class="btn btn-light bg-transparent" data-bs-dismiss="modal"
+                            @click="reportPost('contains inappropriate words')">contains inappropriate words</button>
+                        <button class="btn btn-light bg-transparent" data-bs-dismiss="modal"
+                            @click="reportPost('hate-spreaders')">hate-spreaders</button>
                     </div>
                 </div>
             </div>
