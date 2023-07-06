@@ -1,6 +1,7 @@
 <script>
 import NavBar from '../components/NavBar.vue';
-import CategoryQuestion from '../components/CategoryQuestion.vue';
+// import CategoryQuestion from '../components/CategoryQuestion.vue';
+import CategoryQuestionSide from '../components/CategoryQuestionSide.vue';
 import QuestionCard from '../components/QuestionCard.vue';
 import axios from 'axios'
 import { KeepAlive, Suspense, TransitionGroup } from 'vue';
@@ -9,7 +10,7 @@ export default {
     name: 'QuestionPage',
     components: {
         NavBar,
-        CategoryQuestion,
+        CategoryQuestionSide,
         QuestionCard,
         KeepAlive,
         Suspense,
@@ -62,6 +63,19 @@ export default {
                     }
                 })
         },
+        async sortQuestionInPage(kategori) {
+            await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/sort-kategori?kategoriPost=${kategori}`)
+                .then(response => {
+                    this.questionsData = response.data.data
+                })
+                .catch(err => {
+                    if (err.response.status === 404) {
+                        this.questionsData = []
+                    } else {
+                        console.log("Error fetching question questions", err.response.status)
+                    }
+                })
+        },
         async searchQuestion() {
             await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/search?searchPost=${this.$route.query.searchPost}`)
                 .then(response => {
@@ -103,25 +117,39 @@ export default {
 <template lang="">
     <div class="mb-5">
         <NavBar :userLoggedIn="userLoggedIn" />
-        <div class="mt-5 pt-5">
+        <div class="mt-5">
             <div class="d-flex flex-column align-items-center">
 
                 <!-- category -->
-                <KeepAlive>
+                <!-- <KeepAlive>
                     <div class="mw-50 category mt-4">
                         <div class="row">
-                            <!-- component category -->
+
                             <div class="col-md-2" v-for="category in categoriesData" :key="category._id">
                                 <CategoryQuestion :category="category" />
                             </div>
-                            <!-- component category -->
+
                         </div>
                     </div>
-                </KeepAlive>
+                </KeepAlive> -->
                 <!-- end category -->
 
-                <div class="mw-50 row g-0 mt-5">
-                    <div class="col-md-12">
+                <div class="mw-50 row g-4 mt-5">
+
+                    <!-- category -->
+                    <div class="col-md-3">
+                        <div class="bg-light p-3 sticky-top category border rounded-3 w-100 shadow-sm">
+                            <span class="text-dark fw-bold">Category</span>
+                            <div class="d-flex flex-column border-top mt-2">
+                                
+                                <CategoryQuestionSide v-for="category in categoriesData" @click="sortQuestionInPage(category.kategori)" :key="category._id" :category="category"/>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end category -->
+
+                    <div class="col-md">
                         <div class="border rounded-4 shadow-sm">
 
                             <!-- have question component -->
@@ -165,10 +193,10 @@ export default {
 
 <style scoped>
 .mw-50 {
-    width: 35vw;
+    width: 50vw;
 }
 
-div.mw-50.category {
-    width: 50vw;
+div.sticky-top.category {
+    top: 110px;
 }
 </style>
