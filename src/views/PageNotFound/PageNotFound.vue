@@ -15,10 +15,10 @@ export default {
 
 <template>
     <div class="h-100">
-        <NavBar />
+        <!-- <NavBar /> -->
         <div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
-            <img src="../../assets/img/404.gif" alt="">
-            <button class="btn btn-dark px-4 rounded-pill" @click="goBack">Go Back</button>
+            <img src="../../assets/img/404_2.svg" alt="" class="w-25">
+            <button class="btn btn-dark px-4 rounded-pill mt-3" @click="goBack">Go Back</button>
         </div>
     </div>
 </template>
