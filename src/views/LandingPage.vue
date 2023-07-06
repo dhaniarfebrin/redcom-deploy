@@ -51,7 +51,7 @@ export default {
                     </div>
                 </div>
                 <div class="col-md-6 d-flex justify-content-center">
-                    <img src="../assets/img/hero.gif" alt="">
+                    <img src="../assets/img/hero2.svg" alt="">
                 </div>
             </div>
             <div class="row mb-5">
