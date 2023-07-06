@@ -29,9 +29,34 @@ export default {
             axios.delete(`${import.meta.env.VITE_APP_ROOT_API}api/admin/delete/${post_id}`)
                 .then(response => {
                     this.getDataReport()
+                    this.$toast.success('The Post Deleted', {
+                        duration: 3000,
+                        position: 'top-right'
+                    })
                 })
                 .catch(err => {
-                    console.log("Error fetching category questions", err)
+                    console.log("Error", err)
+                    this.$toast.error(`${error.response}`, {
+                        duration: 3000,
+                        position: 'top-right'
+                    })
+                })
+        },
+        rejectReport(id) {
+            axios.delete(`${import.meta.env.VITE_APP_ROOT_API}api/admin/report/delete/${id}`)
+                .then(response => {
+                    this.getDataReport()
+                    this.$toast.success('The Report Rejected', {
+                        duration: 3000,
+                        position: 'top-right'
+                    })
+                })
+                .catch(err => {
+                    console.log("Error", err)
+                    this.$toast.error(`${error.response}`, {
+                        duration: 3000,
+                        position: 'top-right'
+                    })
                 })
         }
     },
@@ -44,7 +69,7 @@ export default {
 <template>
     <layout>
         <h3 class="mt-4">Reports</h3>
-        <div class="mt-3">
+        <div class="mt-3 p-5">
             <table class="table">
                 <thead>
                     <tr>
@@ -53,15 +78,32 @@ export default {
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="reportsData[0]">
                     <tr v-for="report in reportsData" :key="report._id">
                         <td>{{ report.user_id.username }}</td>
-                        <td>{{ report.reason }}</td>
-                        <td class="d-flex">
-                            <button class="btn btn-light bg-body-secondary rounded-pill"
-                                @click="gotoDetail(report.post_id)">Detail</button>
-                            <button class="btn btn-danger rounded-pill ms-2" @click="deletePost(report.post_id)">Delete
-                                Post</button>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                {{ report.reason }}
+                                <button class="btn btn-light bg-body-secondary rounded-pill ms-2"
+                                    @click="gotoDetail(report.post_id)">Detail</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <button class="btn btn-light bg-body-secondary rounded-pill ms-2"
+                                    @click="rejectReport(report._id)">Reject</button>
+                                <button class="btn btn-danger rounded-pill ms-2" @click="deletePost(report.post_id)">Delete
+                                    Post</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody v-else>
+                    <tr>
+                        <td colspan="3">
+                            <span class="d-flex my-5 justify-content-center align-items-center">
+                                <p>There is no report</p>
+                            </span>
                         </td>
                     </tr>
                 </tbody>
