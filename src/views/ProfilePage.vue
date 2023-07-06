@@ -106,7 +106,7 @@ export default {
                         </div>
                         <div class="mt-3">
                             <div class="d-flex flex-column">
-                                <QuestionCard v-for="question in userQuestions" :key="question._id" :question="question"  />
+                                <QuestionCard v-for="question in userQuestions" :key="question._id" :question="question" @callGetQuestion="getUserQuestions"  />
                                 <div v-if="!userQuestions[0]" class="mt-3">
                                     <p class="text-center">No posts yet</p>
                                 </div>

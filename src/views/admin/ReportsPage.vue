@@ -28,7 +28,6 @@ export default {
         deletePost(post_id) {
             axios.delete(`${import.meta.env.VITE_APP_ROOT_API}api/admin/delete/${post_id}`)
                 .then(response => {
-                    console.log(response);
                     this.getDataReport()
                 })
                 .catch(err => {

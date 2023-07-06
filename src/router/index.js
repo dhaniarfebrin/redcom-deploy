@@ -50,10 +50,11 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
+      meta: { showQuestionDelete: true },
       component: ProfilePage
     },
     {
-      path: '/edit-profile', // param id
+      path: '/edit-profile',
       name: 'edit-profile',
       component: EditProfilePage
     },
@@ -64,21 +65,21 @@ const router = createRouter({
       name: 'admin-dashboard',
       component: DashboardPage
     },
-    {
-      path: '/admin/users/:id',
-      name: 'admin-user',
-      component: UsersPage
-    },
-    {
-      path: '/admin/posts/:id',
-      name: 'admin-post',
-      component: PostsPage
-    },
-    {
-      path: '/admin/comments/:id',
-      name: 'admin-comment',
-      component: CommentsPage
-    },
+    // {
+    //   path: '/admin/users/:id',
+    //   name: 'admin-user',
+    //   component: UsersPage
+    // },
+    // {
+    //   path: '/admin/posts/:id',
+    //   name: 'admin-post',
+    //   component: PostsPage
+    // },
+    // {
+    //   path: '/admin/comments/:id',
+    //   name: 'admin-comment',
+    //   component: CommentsPage
+    // },
     {
       path: '/admin/reports',
       name: 'admin-report',

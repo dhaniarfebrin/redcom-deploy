@@ -1,7 +1,26 @@
 <script>
+import axios from 'axios'
+
 export default {
     name: 'QuestionCard',
-    props: ['question']
+    props: ['question'],
+    computed: {
+        showBtnDelete() {
+            return this.$route.meta?.showQuestionDelete
+        }
+    },
+    methods: {
+        deletePost(id) {
+            axios.delete(`${import.meta.env.VITE_APP_ROOT_API}api/posts/delete/${id}`)
+                .then(response => {
+                    // this.$router.push({ path: '/profile' })
+                    this.$emit("callGetQuestion")
+                })
+                .catch(err => {
+                    console.log("Error", err)
+                })
+        }
+    }
 }
 </script>
 
@@ -16,7 +35,8 @@ export default {
                     <span class="fs-5">{{ question.user_id ? question.user_id.username : "{Deleted User}" }}</span>
                     <span class="form-text m-0">{{ question.date_created }} {{ question.time }}</span>
                 </div>
-                <span class="fw-light badge rounded-pill text-bg-secondary ms-auto">{{ question.kategori_id?.kategori }}</span>
+                <span class="fw-light badge rounded-pill text-bg-secondary ms-auto">{{ question.kategori_id?.kategori
+                }}</span>
             </div>
         </div>
         <p class="mt-3 fw-superlight">{{ question.content }}</p>
@@ -25,7 +45,12 @@ export default {
                 <span><i class="bi bi-chat"></i></span>
                 <span class="ms-1 my-0 form-text">{{ question.total_comments }}</span>
             </div>
-            <router-link :to="`/question/${question._id}`" class="ms-auto btn btn-outline-dark rounded-pill px-4">See</router-link>
+            <div class="ms-auto">
+                <button class="btn btn-outline-danger me-1" v-if="showBtnDelete" @click="deletePost(question._id)"><i
+                        class="bi bi-trash"></i></button>
+                <router-link :to="`/question/${question._id}`"
+                    class="btn btn-outline-dark rounded-pill px-4">See</router-link>
+            </div>
         </div>
     </div>
 </template>
