@@ -10,7 +10,8 @@ export default {
         return {
             userData: {},
             configRequest: {},
-            messageError: ''
+            messageError: '',
+            isLoading: false
         }
     },
     methods: {
@@ -18,8 +19,10 @@ export default {
             this.userData = data
         },
         editUser() {
+            this.isLoading = true
             axios.put(`${import.meta.env.VITE_APP_ROOT_API}api/auth/edit`, this.userData, this.configRequest)
                 .then(response => {
+                    this.isLoading = false
                     this.$router.push({ path: '/profile' })
                     this.$toast.success('Edit Success', {
                         duration: 3000,
@@ -82,7 +85,10 @@ export default {
                     <input type="email" v-model="userData.email" class="form-control rounded-pill bg-body-secondary"
                         required>
                 </div>
-                <button type="submit" class="btn btn-dark w-100 rounded-pill mt-5 py-2">Save</button>
+                <button type="submit" class="btn btn-dark w-100 rounded-pill mt-5 py-2" disabled v-if="isLoading">
+                    <img src="../assets/img/loader.svg" alt="" width="25" class="mx-auto">
+                </button>
+                <button type="submit" class="btn btn-dark w-100 rounded-pill mt-5 py-2" v-else>Save</button>
                 <button type="button" class="btn bg-body-secondary w-100 rounded-pill mt-3 py-2"
                     @click="goBack">Cancel</button>
             </form>

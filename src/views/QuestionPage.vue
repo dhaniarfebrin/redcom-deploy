@@ -20,7 +20,8 @@ export default {
         return {
             categoriesData: [],
             questionsData: [],
-            userLoggedIn: Boolean
+            userLoggedIn: Boolean,
+            isLoading: false
         }
     },
     methods: {
@@ -38,8 +39,10 @@ export default {
                 })
         },
         async getQuestions() {
+            this.isLoading = true
             await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/`)
                 .then(response => {
+                    this.isLoading = false
                     this.questionsData = response.data.data
                 })
                 .catch(err => {
@@ -51,8 +54,10 @@ export default {
                 })
         },
         async sortQuestion() {
+            this.isLoading = true
             await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/sort-kategori?kategoriPost=${this.$route.query.categoryPost}`)
                 .then(response => {
+                    this.isLoading = false
                     this.questionsData = response.data.data
                 })
                 .catch(err => {
@@ -77,14 +82,18 @@ export default {
                 })
         },
         async searchQuestion() {
+            this.questionsData = []
+            this.isLoading = true
             await axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/homepage/search?searchPost=${this.$route.query.searchPost}`)
                 .then(response => {
+                    this.isLoading = false
                     this.questionsData = response.data.data
                 })
                 .catch(err => {
                     if (err.response.status === 404) {
                         this.questionsData = []
                         this.questionsData = false
+                        this.isLoading = false
                     } else {
                         console.log("Error fetching", err.response.status)
                     }
@@ -152,7 +161,8 @@ export default {
                             <Transition name="fade">
                                 <Suspense>
                                     <template #default>
-                                        <div>
+                                        <div class="d-flex flex-column">
+                                            <img src="../assets/img/loader-red.svg" alt="" width="50" class="m-auto" v-if="isLoading">
                                             <div v-if="questionsData === false">
                                                 <p class="text-center d-flex align-items-center justify-content-center m-0"><i class="bi bi-x-square me-2"></i> not found</p>
                                             </div>

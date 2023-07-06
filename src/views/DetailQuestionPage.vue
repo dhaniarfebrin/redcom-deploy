@@ -23,7 +23,9 @@ export default {
             createComment: {},
             token: '',
             user_id: '',
-            reportData: {}
+            reportData: {},
+            isLoading: false,
+            isLoadingCreateComment: false
         }
     },
     methods: {
@@ -54,6 +56,7 @@ export default {
         },
         createCommentPost() {
             if (this.token) {
+                this.isLoadingCreateComment = true
                 const config = {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("user")}`
@@ -68,6 +71,7 @@ export default {
                             position: 'top'
                         })
                         this.createComment.text = ''
+                        this.isLoadingCreateComment = false
                     })
                     .catch(error => {
                         if (error.response) {
@@ -111,8 +115,10 @@ export default {
         this.userLoggedIn = this.token ? true : false
     },
     beforeMount() {
+        this.isLoading = true
         axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/posts/${this.$route.params.id}`)
             .then(response => {
+                this.isLoading = false
                 this.setQuestionData(response.data.data)
             }).catch(err => {
                 console.log(err);
@@ -131,12 +137,12 @@ export default {
     <div class="mb-3">
         <NavBar :userLoggedIn="userLoggedIn" />
         <div class="container mt-5 pt-2">
-
             <div class="d-flex flex-column align-items-center">
                 <div class="mw-50 row g-0 mt-5">
-                    <div class="col-md-12">
+                    <div class="col-md-12 d-flex flex-column">
+                        <img src="../assets/img/loader-red.svg" alt="" width="50" class="mx-auto" v-if="isLoading">
 
-                        <div class="border rounded shadow">
+                        <div class="border rounded-4 shadow">
                             <div class="d-flex py-2 px-3 border border-bottom align-items-center">
                                 <button class="btn" @click="goBack">
                                     <i class="bi bi-arrow-left"></i>
@@ -171,8 +177,13 @@ export default {
                                         <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex">
                                             <input type="text" class="form-control bg-body-secondary rounded-pill"
                                                 placeholder="write answer here" v-model="createComment.text" name="text">
-                                            <button type="submit" class="btn btn-dark rounded-circle ms-1"><i
-                                                    class="bi bi-send-fill"></i></button>
+                                            <button type="submit" class="btn btn-dark rounded-circle ms-1"
+                                                v-if="isLoadingCreateComment" disabled>
+                                                <img src="../assets/img/loader.svg" alt="" width="20" class="mx-auto">
+                                            </button>
+                                            <button type="submit" class="btn btn-dark rounded-circle ms-1" v-else>
+                                                <i class="bi bi-send-fill"></i>
+                                            </button>
                                         </form>
                                     </div>
                                     <div class="d-flex mt-3 border border-0 pt-3 border-top justify-content-center align-items-center"
@@ -186,7 +197,7 @@ export default {
 
                     </div>
 
-                    <div class="border rounded bg-white mt-4 p-3">
+                    <div class="border rounded-4 bg-white mt-4 p-3">
                         <h5>Answers</h5>
 
                         <div v-if="commentsData == false" class="text-center m-0 my-5">No Answers yet</div>

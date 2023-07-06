@@ -10,7 +10,8 @@ export default {
             passwordFieldType: "password",
             classShowHide: "bi bi-eye-slash",
             dataRegister: {},
-            messageError: ''
+            messageError: '',
+            isLoading: false
         }
     },
     methods: {
@@ -24,8 +25,10 @@ export default {
             }
         },
         register() {
+            this.isLoading = true
             axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/auth/signup`, this.dataRegister)
                 .then(response => {
+                    this.isLoading = false
                     this.$router.push({ path: '/login' })
                     this.$toast.success('Success to Register', {
                         duration: 4000,
@@ -90,7 +93,10 @@ export default {
                             </button>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2">Register</button>
+                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2" v-if="isLoading" disabled>
+                        <img src="../assets/img/loader.svg" alt="" width="30">
+                    </button>
+                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2" v-else>Register</button>
                 </form>
             </div>
             <span class="mt-4">Already have an account? <router-link to="/login" class="text-danger">Login

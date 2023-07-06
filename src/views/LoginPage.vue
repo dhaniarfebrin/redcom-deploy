@@ -10,7 +10,8 @@ export default {
             passwordFieldType: "password",
             classShowHide: "bi bi-eye-slash",
             dataLogin: {},
-            messageError: ''
+            messageError: '',
+            isLoading: false
         }
     },
     methods: {
@@ -24,6 +25,7 @@ export default {
             }
         },
         login() {
+            this.isLoading = true
             axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/auth/login`, this.dataLogin)
                 .then(response => {
                     const token = response.data.access_token
@@ -86,7 +88,12 @@ export default {
                             </button>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2">Login</button>
+                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2" v-if="isLoading" disabled>
+                        <img src="../assets/img/loader.svg" alt="" width="30">
+                    </button>
+                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-4 py-2" v-else>
+                        Login
+                    </button>
                 </form>
             </div>
             <span class="mt-4">Don't have an account? <router-link to="/register" class="text-danger">Register

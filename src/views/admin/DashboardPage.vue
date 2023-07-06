@@ -8,13 +8,16 @@ export default {
     name: 'DashboardPage',
     data() {
         return {
-            dataDashboard: {}
+            dataDashboard: {},
+            isLoading: false
         }
     },
     methods: {
         getDataDashboard() {
+            this.isLoading = true
             axios.get(`${import.meta.env.VITE_APP_ROOT_API}api/admin/dashboard`)
                 .then(response => {
+                    this.isLoading = false
                     this.dataDashboard = response.data.data;
                 }).catch(err => {
                     console.log(err);
@@ -38,7 +41,8 @@ export default {
                             <i class="bi bi-people-fill"></i>
                             <h5 class="ms-2">Users</h5>
                         </span>
-                        <span class="w-100 text-end fs-1">{{ dataDashboard.countUsers }}</span>
+                        <img src="../../assets/img/loader-red.svg" alt="" width="40" class="ms-auto" v-if="isLoading">
+                        <span class="w-100 text-end fs-1" v-else>{{ dataDashboard.countUsers }}</span>
                     </div>
                 </div>
             </div>
@@ -49,7 +53,8 @@ export default {
                             <i class="bi bi-stickies-fill"></i>
                             <h5 class="ms-2">Posts</h5>
                         </span>
-                        <span class="w-100 text-end fs-1">{{ dataDashboard.countPosts }}</span>
+                        <img src="../../assets/img/loader-red.svg" alt="" width="40" class="ms-auto" v-if="isLoading">
+                        <span class="w-100 text-end fs-1" v-else>{{ dataDashboard.countPosts }}</span>
                     </div>
                 </div>
             </div>

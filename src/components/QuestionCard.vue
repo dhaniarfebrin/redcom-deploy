@@ -4,6 +4,11 @@ import axios from 'axios'
 export default {
     name: 'QuestionCard',
     props: ['question'],
+    data() {
+        return {
+            isLoading: false
+        }
+    },
     computed: {
         showBtnDelete() {
             return this.$route.meta?.showQuestionDelete
@@ -11,8 +16,10 @@ export default {
     },
     methods: {
         deletePost(id) {
+            this.isLoading = true
             axios.delete(`${import.meta.env.VITE_APP_ROOT_API}api/posts/delete/${id}`)
                 .then(response => {
+                    this.isLoading = false
                     this.$emit("callGetQuestion")
                     this.$toast.error('The Post Deleted', {
                         duration: 3000,
@@ -49,8 +56,10 @@ export default {
                 <span class="ms-1 my-0 form-text">{{ question.total_comments }}</span>
             </div>
             <div class="ms-auto">
-                <button class="btn btn-outline-danger me-1" v-if="showBtnDelete" @click="deletePost(question._id)"><i
-                        class="bi bi-trash"></i></button>
+                <button class="btn btn-outline-danger me-1" v-if="showBtnDelete" @click="deletePost(question._id)">
+                    <img src="../assets/img/loader.svg" alt="" width="30" class="mx-auto" v-if="isLoading">
+                    <i class="bi bi-trash" v-else></i>
+                </button>
                 <router-link :to="`/question/${question._id}`"
                     class="btn btn-outline-dark rounded-pill px-4">See</router-link>
             </div>
