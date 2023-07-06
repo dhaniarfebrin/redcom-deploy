@@ -6,7 +6,7 @@ export default {
 </script>
 
 <template>
-    <div class="card border border-0 border-top p-4">
+    <div class="card bg-transparent border border-0 border-top p-4">
         <div class="d-flex">
             <div class="img-user rounded-circle">
                 <img src="https://i.pinimg.com/originals/b5/6d/9e/b56d9ed31076329211d42bd8ff340914.jpg" alt="">
