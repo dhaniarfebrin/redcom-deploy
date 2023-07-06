@@ -74,7 +74,7 @@ export default {
                         <button type="submit" class="btn mt-5 px-4 py-2 btn-dark rounded-pill"
                             v-if="userLoggedIn">Submit</button>
                         <div class="d-flex justify-content-center align-items-center mt-5" v-else>
-                            <p class="m-0 me-2">You need to login first</p>
+                            <p class="m-0 me-2 fw-bold text-danger">You need to login first</p>
                             <router-link to="/login" class="btn btn-dark rounded-pill px-3">Login</router-link>
                         </div>
                     </form>

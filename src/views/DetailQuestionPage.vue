@@ -158,7 +158,7 @@ export default {
                                     </div>
                                     <div class="d-flex mt-3 border border-0 pt-3 border-top justify-content-center align-items-center"
                                         v-else>
-                                        <p class="m-0 me-2">want to answer the question?</p>
+                                        <p class="m-0 me-2 fw-bold text-danger">want to answer the question?</p>
                                         <router-link to="/login" class="btn btn-dark rounded-pill px-3">Login</router-link>
                                     </div>
                                 </div>
