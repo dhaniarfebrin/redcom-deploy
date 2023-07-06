@@ -70,6 +70,9 @@ export default {
         },
         goBack() {
             window.history.back()
+        },
+        reportPost(reason) {
+
         }
     },
     created() {
@@ -126,6 +129,11 @@ export default {
                                                     questionData.kategori_id?.kategori }}</span>
                                             </span>
                                         </div>
+                                        <div class="ms-auto">
+                                            <button class="btn bg-transparent p-1 text-secondary py-0"
+                                                data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-exclamation-triangle-fill
+                                                "></i></button>
+                                        </div>
                                     </div>
                                     <p class="mt-4 fw-superlight">{{ questionData.content }}</p>
                                     <div class="mt-3 border border-0 pt-3 border-top" v-if="userLoggedIn">
@@ -157,6 +165,26 @@ export default {
                 </div>
             </div>
 
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 px-4 py-4">
+                    <h2 class="modal-title fs-5" id="staticBackdropLabel">
+                        <i class="bi bi-exclamation-triangle-fill text-danger"></i> Report this post
+                    </h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0 pb-4">
+                    <div class="d-flex flex-column">
+                        <button class="btn btn-light bg-transparent" data-bs-dismiss="modal">contains inappropriate words</button>
+                        <button class="btn btn-light bg-transparent" data-bs-dismiss="modal">hate-spreaders</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
