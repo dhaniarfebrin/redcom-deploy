@@ -74,6 +74,11 @@ export default {
         let token = localStorage.getItem("user")
         this.userLoggedIn = token ? true : false
         this.isVisitor = false
+
+        if (!this.userLoggedIn) {
+            this.$router.push({ path: '/' })
+        }
+
         this.getUserDetail()
     },
     mounted() {
@@ -103,10 +108,12 @@ export default {
                         <p class="text-secondary m-0">{{ userData.email }}</p>
                         <span class="form-text"><i class="bi bi-calendar-date"></i> {{ userData.crdAt }}</span>
                         <div class="d-flex flex-column mt-3" v-if="!isVisitor">
-                            <router-link class="btn btn-light shadow-sm bg-body-secondary rounded-pill px-4" :to="`/edit-profile`">
+                            <router-link class="btn btn-light shadow-sm bg-body-secondary rounded-pill px-4"
+                                :to="`/edit-profile`">
                                 Edit Profile
                             </router-link>
-                            <button class="btn btn-outline-danger d-block d-md-none rounded-pill px-4 mt-3" @click="logOut">Logout</button>
+                            <button class="btn btn-outline-danger d-block d-md-none rounded-pill px-4 mt-3"
+                                @click="logOut">Logout</button>
                         </div>
                     </div>
                 </div>
@@ -120,7 +127,8 @@ export default {
                         </div>
                         <div class="mt-3">
                             <div class="d-flex flex-column">
-                                <QuestionCard v-for="question in userQuestions" :key="question._id" :question="question" @callGetQuestion="getUserQuestions"  />
+                                <QuestionCard v-for="question in userQuestions" :key="question._id" :question="question"
+                                    @callGetQuestion="getUserQuestions" />
                                 <div v-if="!userQuestions[0]" class="mt-3">
                                     <p class="text-center">No posts yet</p>
                                 </div>
@@ -183,5 +191,4 @@ div.profile-side.sticky-top {
         border-color: white;
         border-style: solid;
     }
-}
-</style>
+}</style>
