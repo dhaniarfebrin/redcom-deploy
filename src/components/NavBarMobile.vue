@@ -16,7 +16,7 @@ export default {
 </script>
 
 <template>
-    <nav class="navbar d-block d-md-none fixed-bottom py-4">
+    <nav class="navbar d-block d-md-none fixed-bottom py-3">
         <div class="container w-100">
             <div class="d-flex justify-content-around w-100">
                 <router-link to="/question" class="d-flex flex-column text-secondary justify-content-center px-1">
