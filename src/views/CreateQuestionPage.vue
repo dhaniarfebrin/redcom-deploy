@@ -46,6 +46,8 @@ export default {
                 })
                 .catch(err => {
                     if (err.response.status === 401) {
+                        this.isLoading = false
+
                         // this.messageError = err.response.data.message
                         console.log("Error fetching: ", err.response.data.message)
                     } else {
@@ -79,8 +81,7 @@ export default {
                             <option v-for="category in categories" :key="category._id" :value="category._id">
                                 {{ category.kategori }}</option>
                         </select>
-                        <button type="submit" class="btn mt-5 px-4 py-2 btn-dark rounded-pill"
-                            v-if="userLoggedIn">
+                        <button type="submit" class="btn mt-5 px-4 py-2 btn-dark rounded-pill" v-if="userLoggedIn">
                             <img src="../assets/img/loader.svg" alt="" width="30" class="mx-auto" v-if="isLoading">
                             Submit
                         </button>

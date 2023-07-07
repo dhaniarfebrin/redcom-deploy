@@ -20,6 +20,8 @@ export default {
                     this.isLoading = false
                     this.dataDashboard = response.data.data;
                 }).catch(err => {
+                    this.isLoading = false
+
                     console.log(err);
                 })
         }

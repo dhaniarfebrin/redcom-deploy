@@ -37,6 +37,8 @@ export default {
                 })
                 .catch(err => {
                     if (err.response.status === 401) {
+                        this.isLoading = false
+
                         this.messageError = err.response.data.msg
                         console.log("Error fetching: ", err.response.data.msg)
                     } else {

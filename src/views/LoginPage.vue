@@ -28,6 +28,8 @@ export default {
             this.isLoading = true
             axios.post(`${import.meta.env.VITE_APP_ROOT_API}api/auth/login`, this.dataLogin)
                 .then(response => {
+                    this.isLoading = false
+
                     const token = response.data.access_token
                     localStorage.setItem("user", token);
                     this.$router.push({ path: '/question' })
@@ -38,6 +40,8 @@ export default {
                 })
                 .catch(err => {
                     if (err.response.status === 401) {
+                        this.isLoading = false
+
                         this.messageError = err.response.data.message
                         console.log("Error fetching: ", err.response.data.message)
                     } else {

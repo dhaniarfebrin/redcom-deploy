@@ -22,6 +22,8 @@ export default {
                     this.reportsData = response.data.data
                 })
                 .catch(err => {
+                    this.getDataLoading = false
+
                     console.log("Error fetching category questions", err)
                 })
         },
@@ -41,6 +43,8 @@ export default {
                     })
                 })
                 .catch(err => {
+                    this.actionLoading = false
+
                     console.log("Error", err)
                     this.$toast.error(`${error.response}`, {
                         duration: 3000,
@@ -60,6 +64,8 @@ export default {
                     })
                 })
                 .catch(err => {
+                    this.actionLoading = false
+
                     console.log("Error", err)
                     this.$toast.error(`${error.response}`, {
                         duration: 3000,
@@ -106,7 +112,8 @@ export default {
                             </div>
                         </td>
                         <td>
-                            <img src="../../assets/img/loader-red.svg" alt="" width="20" class="mx-auto" v-if="actionLoading">
+                            <img src="../../assets/img/loader-red.svg" alt="" width="20" class="mx-auto"
+                                v-if="actionLoading">
                             <div class="d-flex" v-else>
                                 <button class="btn btn-light bg-body-secondary rounded-pill ms-2"
                                     @click="rejectReport(report._id)">

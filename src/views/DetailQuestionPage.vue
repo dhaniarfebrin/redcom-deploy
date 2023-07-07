@@ -75,6 +75,8 @@ export default {
                     })
                     .catch(error => {
                         if (error.response) {
+                            this.isLoadingCreateComment = false
+
                             console.log(error.response.data)
                             this.$toast.error(`${error.response}`, {
                                 duration: 3000,
@@ -121,6 +123,8 @@ export default {
                 this.isLoading = false
                 this.setQuestionData(response.data.data)
             }).catch(err => {
+                this.isLoading = false
+
                 console.log(err);
             })
 
