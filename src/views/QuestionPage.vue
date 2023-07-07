@@ -5,6 +5,9 @@ import CategoryQuestionSide from '../components/CategoryQuestionSide.vue';
 import QuestionCard from '../components/QuestionCard.vue';
 import axios from 'axios'
 import { KeepAlive, Suspense, TransitionGroup } from 'vue';
+import Flicking from "@egjs/vue3-flicking";
+import NavBarMobile from '../components/NavBarMobile.vue';
+import HeaderTopMobile from '../components/HeaderTopMobile.vue';
 
 export default {
     name: 'QuestionPage',
@@ -14,7 +17,10 @@ export default {
         QuestionCard,
         KeepAlive,
         Suspense,
-        TransitionGroup
+        TransitionGroup,
+        Flicking,
+        NavBarMobile,
+        HeaderTopMobile
     },
     data() {
         return {
@@ -125,32 +131,45 @@ export default {
 
 <template lang="">
     <div class="mb-5">
-        <NavBar :userLoggedIn="userLoggedIn" />
+
+        <NavBar :userLoggedIn="userLoggedIn" class="d-none d-md-block" />
+        <HeaderTopMobile />
+
         <div class="mt-5">
             <div class="d-flex flex-column align-items-center">
 
                 <div class="mw-50 row g-4 mt-5">
 
                     <!-- category -->
-                    <div class="col-md-3">
+                    <div class="col-md-3 d-none d-md-block">
                         <div class="bg-light p-3 sticky-top category border rounded-3 w-100 shadow-sm">
                             <span class="text-dark fw-bold">Category</span>
                             <div class="d-flex flex-column border-top mt-2">
                                 
-                                <CategoryQuestionSide v-for="category in categoriesData" @click="sortQuestionInPage(category.kategori)" :key="category._id" :category="category"/>
+                                <CategoryQuestionSide v-for="category in categoriesData" @click="sortQuestionInPage(category.kategori)" :key="category._id" :category="category" class="mt-3"/>
+
                                 <button class="btn btn-light bg-body-secondary mt-3" @click="getQuestions">reset</button>
+
                             </div>
                         </div>
                     </div>
                     <!-- end category -->
 
+                    <!-- slider category for mobile -->
+                    <Flicking :options="{ moveType: 'freeScroll', bound: true }" class="d-block d-md-none mt-4">
+                        <div v-for="category in categoriesData" @click="sortQuestionInPage(category.kategori)" :key="category._id" enter-class="flicking-panel" class="me-2 py-1 px-3 bg-body-secondary d-flex rounded" >
+                            <CategoryQuestionSide  :category="category" />
+                        </div>
+                    </Flicking>
+                    <!-- slider for mobile -->
+
                     <div class="col-md">
                         <div class="border rounded-4 shadow-sm">
 
                             <!-- have question component -->
-                            <div class="d-flex flex-column p-5" v-if="!userLoggedIn">
+                            <div class="d-none d-md-flex flex-column p-5" v-if="!userLoggedIn">
                                 <div class="px-3">
-                                    <h1 class="fs-1 fw-semibold">Have a <span class="text-danger">Question</span>?</h1>
+                                    <h1 class="fs-1 fw-bold">Have a <span class="text-danger">Question</span>?</h1>
                                     <div class="">
                                         <router-link to="/create-question" class="btn btn-lg btn-dark rounded-pill mt-3 px-4">Ask Questions</router-link>
                                     </div>
@@ -184,6 +203,8 @@ export default {
 
             </div>  
         </div>
+        
+        <NavBarMobile />
     </div>
 </template>
 
@@ -194,5 +215,16 @@ export default {
 
 div.sticky-top.category {
     top: 110px;
+}
+
+@media (max-width: 575.98px) {
+    .mw-50.mt-5 {
+        width: 100vw;
+        margin-top: 0px !important;
+    }
+
+    div.col-md {
+        margin-top: 14px;
+    }
 }
 </style>

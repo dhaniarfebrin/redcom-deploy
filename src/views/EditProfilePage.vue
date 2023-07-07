@@ -1,5 +1,8 @@
 <script setup>
 import NavBar from '../components/NavBar.vue';
+import NavBarMobile from '../components/NavBarMobile.vue';
+import HeaderTopMobile from '../components/HeaderTopMobile.vue';
+
 import axios from 'axios';
 </script>
 
@@ -64,15 +67,18 @@ export default {
 
 <template>
     <div>
-        <NavBar :user-logged-in="true" />
+        <NavBar :user-logged-in="true" class="d-none d-md-block" />
+        <HeaderTopMobile />
+
         <div class="container mt-5 pt-5 w-100 d-flex justify-content-start flex-column">
             <h2 class="my-5">Edit Profile</h2>
+
             <form action="#" v-on:submit.prevent="editUser" class="w-25 mx-auto">
                 <!-- alert -->
                 <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert"
                     v-if="messageError">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    <div class="m-0">
+                    <div class="m-0 message-error">
                         {{ messageError }}
                     </div>
                 </div>
@@ -94,6 +100,21 @@ export default {
                 <button type="button" class="btn bg-body-secondary w-100 rounded-pill mt-3 py-2"
                     @click="goBack">Cancel</button>
             </form>
+
         </div>
     </div>
+
+    <NavBarMobile />
 </template>
+
+<style>
+@media (max-width: 575.98px) {
+    form.w-25 {
+        width: 80vw !important;
+    }
+
+    div.message-error {
+        font-size: small;
+    }
+}
+</style>

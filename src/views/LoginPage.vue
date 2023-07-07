@@ -60,10 +60,11 @@ export default {
 </script>
 
 <template>
-    <div class="container mt-auto h-100">
+    <div class="container my-auto h-100">
         <div class="d-flex flex-column justify-content-center align-items-center">
             <h3 class="fw-bold">Welcome <span class="text-danger">Back</span></h3>
             <p class="text-center">Get answers in minutes<br>so you can complete your tasks faster.</p>
+
             <div class="form-login w-25 mt-4">
 
                 <!-- alert -->
@@ -100,8 +101,17 @@ export default {
                     </button>
                 </form>
             </div>
+
             <span class="mt-4">Don't have an account? <router-link to="/register" class="text-danger">Register
                     Here</router-link></span>
         </div>
     </div>
 </template>
+
+<style scoped>
+@media (max-width: 575.98px) {
+    .form-login.w-25 {
+        width: 80vw !important;
+    }
+}
+</style>

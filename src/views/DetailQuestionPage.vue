@@ -2,6 +2,9 @@
 import NavBar from '../components/NavBar.vue';
 import CommentComponent from '../components/CommentComponent.vue';
 import { KeepAlive, Suspense, TransitionGroup } from 'vue';
+import NavBarMobile from '../components/NavBarMobile.vue';
+import HeaderTopMobile from '../components/HeaderTopMobile.vue';
+
 import axios from 'axios'
 import VueJwtDecode from "vue-jwt-decode";
 import linkify from 'linkify-html'
@@ -13,7 +16,9 @@ export default {
     components: {
         KeepAlive,
         Suspense,
-        TransitionGroup
+        TransitionGroup,
+        NavBarMobile,
+        HeaderTopMobile
     },
     data() {
         return {
@@ -139,7 +144,10 @@ export default {
 
 <template>
     <div class="mb-3">
-        <NavBar :userLoggedIn="userLoggedIn" />
+
+        <NavBar :userLoggedIn="userLoggedIn" class="d-none d-md-block" />
+        <HeaderTopMobile />
+
         <div class="container mt-5 pt-2">
             <div class="d-flex flex-column align-items-center">
                 <div class="mw-50 row g-0 mt-5">
@@ -161,26 +169,30 @@ export default {
                                                 alt="">
                                         </div>
                                         <div class="ms-3 d-flex flex-column justify-content-center">
-                                            <span class="fs-5">{{ questionData.user_id ? questionData.user_id.username :
+                                            <span class="fs-5 username">{{ questionData.user_id ? questionData.user_id.username :
                                                 "{Deleted User}" }}</span>
                                             <span class="d-flex">
-                                                <p class="fw-light form-text m-0">{{ questionData.date_created }} {{
+                                                <p class="fw-light form-text m-0 date">{{ questionData.date_created }} {{
                                                     questionData.time }}</p>
                                                 <span class="ms-2 fw-light badge rounded-pill text-bg-secondary">{{
                                                     questionData.kategori_id?.kategori }}</span>
                                             </span>
                                         </div>
+
                                         <div class="ms-auto" v-if="userLoggedIn">
                                             <button class="btn bg-transparent p-1 text-secondary py-0"
                                                 data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-exclamation-triangle-fill
                                                 "></i></button>
                                         </div>
+                                        
                                     </div>
                                     <p class="mt-4 fw-superlight" v-html="linkify(questionData.content)"></p>
                                     <div class="mt-3 border border-0 pt-3 border-top" v-if="userLoggedIn">
                                         <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex">
+                                            
                                             <input type="text" class="form-control bg-body-secondary rounded-pill"
                                                 placeholder="write answer here" v-model="createComment.text" name="text">
+
                                             <button type="submit" class="btn btn-dark rounded-circle ms-1"
                                                 v-if="isLoadingCreateComment" disabled>
                                                 <img src="../assets/img/loader.svg" alt="" width="20" class="mx-auto">
@@ -188,6 +200,7 @@ export default {
                                             <button type="submit" class="btn btn-dark rounded-circle ms-1" v-else>
                                                 <i class="bi bi-send-fill"></i>
                                             </button>
+
                                         </form>
                                     </div>
                                     <div class="d-flex mt-3 border border-0 pt-3 border-top justify-content-center align-items-center"
@@ -236,6 +249,8 @@ export default {
             </div>
         </div>
     </div>
+
+    <NavBarMobile />
 </template>
 
 <style scoped>
@@ -256,5 +271,48 @@ export default {
 
 .not-logged-in-form:hover {
     cursor: not-allowed;
+}
+
+@media (max-width: 575.98px) {
+    .mw-50 {
+        width: 98vw;
+        padding-top: 0 !important;
+        margin-top: 10px !important;
+        margin-bottom: 30px;
+    }
+
+    .img-user {
+        width: 30px;
+        height: 30px;
+        overflow: hidden;
+    }
+
+    span.fs-5.username {
+        font-size: small!important;
+        font-weight: 600 !important;
+    }
+
+    p.date {
+        font-size: 10px !important;
+    }
+
+    span.badge {
+        font-size: 10px !important;
+    }
+
+    p.fw-superlight {
+        font-size: 14px;
+    }
+
+    p.text-danger {
+        font-size: small;
+    }
+
+    a.btn.btn-dark {
+        padding: 0;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        font-size: small;
+    }
 }
 </style>

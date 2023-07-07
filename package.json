@@ -10,6 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@egjs/vue3-flicking": "^4.10.8",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",

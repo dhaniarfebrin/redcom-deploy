@@ -70,7 +70,7 @@ export default {
                 <router-link class="navbar-brand fw-bold text-danger position-relative" to="/">
                     RedCom
                 </router-link>
-                <div class="position-absolute top-50 start-50 translate-middle">
+                <div class="position-absolute top-50 start-50 translate-middle search-form">
                     <div class="input-group rounded-pill">
                         <span class="input-group-text bg-body-secondary rounded-start-pill" id="search"><i
                                 class="bi bi-search"></i></span>
@@ -79,7 +79,7 @@ export default {
                             aria-label="search" aria-describedby="search">
                     </div>
                 </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                <button class="navbar-toggler d-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -150,5 +150,16 @@ input {
 
 a.nav-link.dropdown-toggle::after {
     display: none;
+}
+
+@media (max-width: 575.98px) { 
+    .search-form {
+        display: none;
+    }
+
+    nav.navbar {
+        padding-top: 6px !important;
+        padding-bottom: 6px !important;
+    }
 }
 </style>

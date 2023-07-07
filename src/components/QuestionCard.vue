@@ -42,8 +42,8 @@ export default {
             </div>
             <div class="ms-3 d-flex align-items-center w-100">
                 <div class="d-flex flex-column">
-                    <span class="fs-5">{{ question.user_id ? question.user_id.username : "{Deleted User}" }}</span>
-                    <span class="form-text m-0">{{ question.date_created }} {{ question.time }}</span>
+                    <span class="fs-5 username fw-medium">{{ question.user_id ? question.user_id.username : "{Deleted User}" }}</span>
+                    <span class="form-text m-0 date">{{ question.date_created }} {{ question.time }}</span>
                 </div>
                 <span class="fw-light badge rounded-pill text-bg-secondary ms-auto">{{ question.kategori_id?.kategori
                 }}</span>
@@ -74,8 +74,47 @@ export default {
     overflow: hidden;
 }
 
-.img-user>img {
+div.img-user>img {
     width: 100%;
     height: auto;
+}
+
+@media (max-width: 575.98px) {
+    .img-user {
+        width: 40px;
+        height: 35px;
+    }
+
+    span.fs-5.username {
+        font-size: small!important;
+        font-weight: 600 !important;
+    }
+
+    span.date {
+        font-size: 10px !important;
+    }
+
+    span.badge {
+        font-size: 10px !important;
+    }
+
+    p.fw-superlight {
+        font-size: small;
+    }
+
+    a.btn.btn-outline-dark {
+        padding: 1px;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        font-size: small;
+    }
+
+    button.btn.btn-outline-danger {
+        font-size: small;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        margin-right: 12px !important;
+    }
 }
 </style>

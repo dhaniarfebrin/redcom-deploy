@@ -48,4 +48,15 @@ export default {
     transform: translateY(-5px);
     transition: .2s;
 }
+
+@media (max-width: 575.98px)  {
+    span.mt-2.fw-medium {
+        font-size: 12px !important;
+    }
+
+    .img-category {
+        width: 55px;
+        height: 55px;
+    }
+}
 </style>

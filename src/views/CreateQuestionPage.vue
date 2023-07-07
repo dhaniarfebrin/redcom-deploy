@@ -1,5 +1,8 @@
 <script setup>
 import NavBar from '../components/NavBar.vue';
+import NavBarMobile from '../components/NavBarMobile.vue';
+import HeaderTopMobile from '../components/HeaderTopMobile.vue';
+
 import axios from 'axios'
 import VueJwtDecode from "vue-jwt-decode";
 </script>
@@ -66,7 +69,10 @@ export default {
 
 <template>
     <div>
-        <NavBar :userLoggedIn="userLoggedIn" />
+
+        <NavBar :userLoggedIn="userLoggedIn" class="d-none d-md-block" />
+        <HeaderTopMobile />
+
         <div class="container mt-5 pt-5">
             <div class="d-flex justify-content-center">
                 <div class="card p-5 shadow mt-5 rounded-4">
@@ -94,10 +100,31 @@ export default {
             </div>
         </div>
     </div>
+
+    <NavBarMobile />
 </template>
 
 <style scoped>
 .card {
     width: 35vw;
+}
+
+@media (max-width: 575.98px) {
+    .card {
+        width: 100vw;
+        padding: 22px !important;
+    }
+
+    button.btn.mt-5 {
+        width: 100%;
+    }
+
+    p {
+        font-size: small;
+    }
+
+    a {
+        font-size: small;
+    }
 }
 </style>
