@@ -38,7 +38,17 @@ export default {
 </template> -->
 
 <style scoped>
-@media (max-width: 575.98px) {
-    
+
+a.text-secondary:hover {
+    color: #dc3545 !important;
 }
+
+a.text-secondary:active {
+    color: #dc3545 !important;
+}
+
+a.text-secondary:focus {
+    color: #dc3545 !important;
+}
+
 </style>

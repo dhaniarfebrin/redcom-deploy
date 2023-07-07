@@ -22,12 +22,12 @@ export default {
                 </div>
             </div>
             <div class="ms-3">
-                <div class="d-flex flex-column">
+                <div class="d-flex flex-column text-wrap">
                     <div class="d-flex align-items-center">
                         <span class="username">{{comment?.username}}</span>
                         <span class="badge rounded-pill text-bg-danger fw-light ms-1" v-if="is_admin">Admin</span>
                     </div>
-                    <p class="form-text comment-text">{{comment.text}}</p>
+                    <div class="form-text comment-text text-wrap">{{comment.text}}</div>
                 </div>
             </div>
         </div>
@@ -53,13 +53,13 @@ export default {
         height: 30px;
         min-width: 20px;
     }
-
+    
     span.username {
         font-size: small;
         font-weight: 600;
     }
-
-    p.comment-text {
+    
+    div.comment-text {
         font-size: 12px;
     }
 }

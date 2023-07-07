@@ -190,8 +190,10 @@ export default {
                                     <div class="mt-3 border border-0 pt-3 border-top" v-if="userLoggedIn">
                                         <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex">
                                             
-                                            <input type="text" class="form-control bg-body-secondary rounded-pill"
-                                                placeholder="write answer here" v-model="createComment.text" name="text">
+                                            <!-- <input type="text" class="form-control bg-body-secondary rounded-pill"
+                                                placeholder="write answer here" v-model="createComment.text" name="text"> -->
+                                            <textarea type="text" rows="1" class="form-control bg-body-secondary rounded-pill"
+                                                placeholder="write answer here" v-model="createComment.text" name="text" wrap="soft"></textarea>
 
                                             <button type="submit" class="btn btn-dark rounded-circle ms-1"
                                                 v-if="isLoadingCreateComment" disabled>
