@@ -29,13 +29,16 @@ export default {
                 .catch(err => {
                     console.log("Error", err)
                 })
-        }
+        },
+        redirectToDetail(id) {
+            this.$router.push({ path: `/question/${id}` })
+        } 
     }
 }
 </script>
 
 <template>
-    <div class="card bg-transparent border border-0 border-top p-4">
+    <div class="card bg-transparent border border-0 border-top p-4" @click="redirectToDetail(question._id)">
         <div class="d-flex w-100">
             <div class="img-user rounded-circle">
                 <img src="https://i.pinimg.com/originals/b5/6d/9e/b56d9ed31076329211d42bd8ff340914.jpg" alt="">
