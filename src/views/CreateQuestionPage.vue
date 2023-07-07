@@ -80,9 +80,9 @@ export default {
                     <form action="#" v-on:submit.prevent="createQuestion">
                         <textarea name="question" id="" cols="30" rows="5"
                             class="form-control bg-body-secondary rounded-4 mb-4" placeholder="write question here"
-                            v-model="dataNewQuestion.content"></textarea>
+                            v-model="dataNewQuestion.content" required></textarea>
                         <select name="category" class="form-select bg-body-secondary rounded-pill" id=""
-                            v-model="dataNewQuestion.kategoriId">
+                            v-model="dataNewQuestion.kategoriId" required>
                             <option selected disabled>Choose category</option>
                             <option v-for="category in categories" :key="category._id" :value="category._id">
                                 {{ category.kategori }}</option>
