@@ -2,11 +2,6 @@
 export default {
     name: 'CategoryQuestionSide',
     props: ['category'],
-    methods: {
-        sortQuestion() {
-            this.$router.push({ path: `/question`, query: { categoryPost: this.category.kategori } }) // search
-        }
-    },
 }
 </script>
 

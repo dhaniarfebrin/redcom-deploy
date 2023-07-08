@@ -158,6 +158,11 @@ export default {
                     <!-- slider category for mobile -->
                     <div class="d-block d-md-none mt-3 pe-0">
                         <Flicking :options="{ moveType: 'freeScroll', bound: true }">
+                            <div class="me-2 py-1 px-3 bg-body-secondary rounded flicking-panel" @click="getQuestions">
+                                <div class="d-flex category-item w-100 fw-bold">
+                                    <span class="form-text my-0">All</span>
+                                </div>
+                            </div>
                             <div v-for="category in categoriesData" @click="sortQuestionInPage(category.kategori)" :key="category._id" enter-class="flicking-panel" class="me-2 py-1 px-3 bg-body-secondary d-flex rounded" >
                                 <CategoryQuestionSide  :category="category" />
                             </div>
@@ -211,6 +216,27 @@ export default {
 </template>
 
 <style scoped>
+.category-item:hover {
+    color: #dc3545 !important;
+    cursor: pointer;
+    transform: translateX(4px);
+}
+
+.category-item:hover > span.form-text {
+    color: #dc3545 !important;
+    cursor: pointer;
+}
+
+.category-item:active {
+    color: #dc3545 !important;
+    cursor: pointer;
+}
+
+@media (max-width: 575.98px) {
+    .form-text {
+        margin: 0 !important;
+    }
+}
 .mw-50 {
     width: 50vw;
 }
