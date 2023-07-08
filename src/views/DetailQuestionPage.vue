@@ -259,7 +259,7 @@ export default {
 
     <!-- input form comment -->
     <div class="input-form-comment-section d-block d-md-none fixed-bottom">
-        <div class="border-0 border-top p-2" v-if="userLoggedIn">
+        <div class="border-0 border-top p-2 py-3" v-if="userLoggedIn">
             <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex form-comment">
 
                 <!-- <input type="text" class="form-control bg-body-secondary rounded-pill"
