@@ -48,6 +48,9 @@ export default {
 }
 
 @media (max-width: 575.98px) {
+    .card {
+        background-color: transparent;
+    }
     .img-user-comment {
         width: 30px;
         height: 30px;

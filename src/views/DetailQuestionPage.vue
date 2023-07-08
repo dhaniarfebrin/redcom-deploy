@@ -146,7 +146,7 @@ export default {
     <div class="mb-3">
 
         <NavBar :userLoggedIn="userLoggedIn" class="d-none d-md-block" />
-        <HeaderTopMobile />
+        <!-- <HeaderTopMobile /> -->
 
         <div class="container mt-5 pt-2">
             <div class="d-flex flex-column align-items-center">
@@ -155,21 +155,22 @@ export default {
                         <img src="../assets/img/loader-red.svg" alt="" width="50" class="mx-auto" v-if="isLoading">
 
                         <div class="border rounded-4 shadow">
-                            <div class="d-flex py-2 px-3 border border-bottom align-items-center">
+                            <div class="d-flex py-2 px-3 border-bottom align-items-center">
                                 <button class="btn" @click="goBack">
                                     <i class="bi bi-arrow-left"></i>
                                 </button>
                                 <div class="ms-1">Detail Question</div>
                             </div>
                             <div class="d-flex flex-column p-4">
-                                <div class="card bg-transparent border border-0">
+                                <div class="card bg-transparent border-0">
                                     <div class="d-flex">
                                         <div class="img-user rounded-circle">
                                             <img src="https://i.pinimg.com/originals/b5/6d/9e/b56d9ed31076329211d42bd8ff340914.jpg"
                                                 alt="">
                                         </div>
                                         <div class="ms-3 d-flex flex-column justify-content-center">
-                                            <span class="fs-5 username">{{ questionData.user_id ? questionData.user_id.username :
+                                            <span class="fs-5 username">{{ questionData.user_id ?
+                                                questionData.user_id.username :
                                                 "{Deleted User}" }}</span>
                                             <span class="d-flex">
                                                 <p class="fw-light form-text m-0 date">{{ questionData.date_created }} {{
@@ -184,31 +185,36 @@ export default {
                                                 data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-exclamation-triangle-fill
                                                 "></i></button>
                                         </div>
-                                        
-                                    </div>
-                                    <p class="mt-4 fw-superlight" v-html="linkify(questionData.content)"></p>
-                                    <div class="mt-3 border border-0 pt-3 border-top" v-if="userLoggedIn">
-                                        <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex">
-                                            
-                                            <!-- <input type="text" class="form-control bg-body-secondary rounded-pill"
-                                                placeholder="write answer here" v-model="createComment.text" name="text"> -->
-                                            <textarea type="text" rows="1" class="form-control bg-body-secondary rounded-pill"
-                                                placeholder="write answer here" v-model="createComment.text" name="text" wrap="soft"></textarea>
 
-                                            <button type="submit" class="btn btn-dark rounded-circle ms-1"
-                                                v-if="isLoadingCreateComment" disabled>
-                                                <img src="../assets/img/loader.svg" alt="" width="20" class="mx-auto">
-                                            </button>
-                                            <button type="submit" class="btn btn-dark rounded-circle ms-1" v-else>
-                                                <i class="bi bi-send-fill"></i>
-                                            </button>
-
-                                        </form>
                                     </div>
-                                    <div class="d-flex mt-3 border border-0 pt-3 border-top justify-content-center align-items-center"
-                                        v-else>
-                                        <p class="m-0 me-2 fw-bold text-danger">want to answer the question?</p>
-                                        <router-link to="/login" class="btn btn-dark rounded-pill px-3">Login</router-link>
+                                    <p class="mt-4 fw-superlight">{{ questionData.content }}</p>
+                                    <div class="d-none d-md-block">
+                                        <div class="mt-3 border border-0 pt-3 border-top" v-if="userLoggedIn">
+                                            <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex">
+
+                                                <!-- <input type="text" class="form-control bg-body-secondary rounded-pill"
+                                                    placeholder="write answer here" v-model="createComment.text" name="text"> -->
+                                                <textarea type="text" rows="1"
+                                                    class="form-control bg-body-secondary rounded-pill"
+                                                    placeholder="write answer here" v-model="createComment.text" name="text"
+                                                    wrap="soft"></textarea>
+
+                                                <button type="submit" class="btn btn-dark rounded-circle ms-1"
+                                                    v-if="isLoadingCreateComment" disabled>
+                                                    <img src="../assets/img/loader.svg" alt="" width="20" class="mx-auto">
+                                                </button>
+                                                <button type="submit" class="btn btn-dark rounded-circle ms-1" v-else>
+                                                    <i class="bi bi-send-fill"></i>
+                                                </button>
+
+                                            </form>
+                                        </div>
+                                        <div class="d-flex mt-3 border border-0 pt-3 border-top justify-content-center align-items-center"
+                                            v-else>
+                                            <p class="m-0 me-2 fw-bold text-danger">want to answer the question?</p>
+                                            <router-link to="/login"
+                                                class="btn btn-dark rounded-pill px-3">Login</router-link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -216,12 +222,11 @@ export default {
 
                     </div>
 
-                    <div class="border rounded-4 bg-white mt-4 p-3">
-                        <h5>Answers</h5>
+                    <div class="border rounded-4 bg-white mt-4 p-3 comment-section">
+                        <h5 class="d-none d-md-block">Answers</h5>
 
                         <div v-if="commentsData == false" class="text-center m-0 my-5">No Answers yet</div>
                         <CommentComponent v-else v-for="comment in commentsData" :key="comment._id" :comment="comment" />
-
                     </div>
                 </div>
             </div>
@@ -252,7 +257,33 @@ export default {
         </div>
     </div>
 
-    <NavBarMobile />
+    <!-- input form comment -->
+    <div class="input-form-comment-section d-block d-md-none fixed-bottom">
+        <div class="border-0 border-top p-2" v-if="userLoggedIn">
+            <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex form-comment">
+
+                <!-- <input type="text" class="form-control bg-body-secondary rounded-pill"
+                    placeholder="write answer here" v-model="createComment.text" name="text"> -->
+                <textarea type="text" rows="1" class="form-control bg-body-secondary rounded-pill"
+                    placeholder="write answer here" v-model="createComment.text" name="text" wrap="soft"></textarea>
+
+                <button type="submit" class="btn btn-dark rounded-circle ms-1" v-if="isLoadingCreateComment" disabled>
+                    <img src="../assets/img/loader.svg" alt="" width="20" class="mx-auto">
+                </button>
+                <button type="submit" class="btn btn-dark rounded-circle ms-1" v-else>
+                    <i class="bi bi-send-fill"></i>
+                </button>
+
+            </form>
+        </div>
+        <div class="d-flex mt-3 border-0 py-3 border-top justify-content-center align-items-center" v-else>
+            <p class="m-0 me-2 fw-bold text-danger">want to answer the question?</p>
+            <router-link to="/login" class="btn btn-dark rounded-pill px-3">Login</router-link>
+        </div>
+    </div>
+    <!-- input form comment -->
+
+    <!-- <NavBarMobile /> -->
 </template>
 
 <style scoped>
@@ -276,11 +307,48 @@ export default {
 }
 
 @media (max-width: 575.98px) {
-    .mw-50 {
-        width: 98vw;
+    div.input-form-comment-section {
+        background-color: white;
+    }
+    form.form-comment > textarea {
+        font-size: small;
+    }
+    div.border.rounded-4 {
+        box-shadow: none !important;
+        border: 0 !important;
+    }
+
+    div.comment-section {
+        border-top: 2px solid black !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        margin-bottom: 20px !important;
         padding-top: 0 !important;
-        margin-top: 10px !important;
-        margin-bottom: 30px;
+        z-index: 1;
+    }
+    div.col-md-12.d-flex.flex-column {
+        position: sticky;
+        background-color: white;
+        border-bottom: 1px solid gray;
+        top: 0;
+        z-index: 99;
+    }
+
+    .container {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .card {
+        box-shadow: none !important;
+        position: sticky !important;
+        top: 0;
+    }
+
+    .mw-50 {
+        width: 100vw;
+        padding-top: 0 !important;
+        margin-top: 0 !important;
     }
 
     .img-user {
@@ -290,7 +358,7 @@ export default {
     }
 
     span.fs-5.username {
-        font-size: small!important;
+        font-size: small !important;
         font-weight: 600 !important;
     }
 
@@ -316,5 +384,4 @@ export default {
         padding-bottom: 2px;
         font-size: small;
     }
-}
-</style>
+}</style>
