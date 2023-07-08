@@ -64,7 +64,7 @@ export default {
                     <i class="bi bi-trash" v-else></i>
                 </button>
                 <router-link :to="`/question/${question._id}`"
-                    class="btn btn-outline-dark rounded-pill px-4">See</router-link>
+                    class="btn btn-outline-dark rounded-pill d-none d-md-block px-4">See</router-link>
             </div>
         </div>
     </div>

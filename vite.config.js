@@ -12,7 +12,7 @@ export default defineConfig({
     vue(),
     vueJsx(),
     VitePWA({
-      includeAssets: ['favicon.ico', './src/assets/'],
+      // includeAssets: ['favicon.ico', './src/assets/'],
       manifest: {
         name: 'Tanya Redcom',
         short_name: 'Redcom',
