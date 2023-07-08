@@ -276,7 +276,7 @@ export default {
 
             </form>
         </div>
-        <div class="d-flex mt-3 border-0 py-3 border-top justify-content-center align-items-center" v-else>
+        <div class="d-flex border-0 py-3 border-top justify-content-center align-items-center" v-else>
             <p class="m-0 me-2 fw-bold text-danger">want to answer the question?</p>
             <router-link to="/login" class="btn btn-dark rounded-pill px-3">Login</router-link>
         </div>
@@ -318,8 +318,7 @@ export default {
         border: 0 !important;
     }
 
-    div.comment-section {
-        border-top: 2px solid black !important;
+    div.comment-section {        
         border-radius: 0 !important;
         margin: 0 !important;
         margin-bottom: 20px !important;
@@ -329,7 +328,7 @@ export default {
     div.col-md-12.d-flex.flex-column {
         position: sticky;
         background-color: white;
-        border-bottom: 1px solid gray;
+        border-bottom: 1px solid #d0e1ee;
         top: 0;
         z-index: 99;
     }
