@@ -12,7 +12,7 @@ export default {
 
 <template>
     <div class="d-flex category-item w-100 fw-bold">
-        <span><i class="bi bi-arrow-right-short fw-bold"></i></span>
+        <span class="d-none d-md-block"><i class="bi bi-arrow-right-short fw-bold"></i></span>
         <span class="form-text my-0 ms-1">{{ category.kategori }}</span>
     </div>
 </template>
@@ -32,5 +32,11 @@ export default {
 .category-item:active {
     color: #dc3545 !important;
     cursor: pointer;
+}
+
+@media (max-width: 575.98px) {
+    .form-text {
+        margin: 0 !important;
+    }
 }
 </style>

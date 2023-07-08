@@ -156,11 +156,13 @@ export default {
                     <!-- end category -->
 
                     <!-- slider category for mobile -->
-                    <Flicking :options="{ moveType: 'freeScroll', bound: true }" class="d-block d-md-none mt-4">
-                        <div v-for="category in categoriesData" @click="sortQuestionInPage(category.kategori)" :key="category._id" enter-class="flicking-panel" class="me-2 py-1 px-3 bg-body-secondary d-flex rounded" >
-                            <CategoryQuestionSide  :category="category" />
-                        </div>
-                    </Flicking>
+                    <div class="d-block d-md-none mt-3 pe-0">
+                        <Flicking :options="{ moveType: 'freeScroll', bound: true }">
+                            <div v-for="category in categoriesData" @click="sortQuestionInPage(category.kategori)" :key="category._id" enter-class="flicking-panel" class="me-2 py-1 px-3 bg-body-secondary d-flex rounded" >
+                                <CategoryQuestionSide  :category="category" />
+                            </div>
+                        </Flicking>
+                    </div>
                     <!-- slider for mobile -->
 
                     <div class="col-md">
