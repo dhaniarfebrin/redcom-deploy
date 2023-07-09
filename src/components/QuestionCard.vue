@@ -58,7 +58,7 @@ export default {
                 <span><i class="bi bi-chat"></i></span>
                 <span class="ms-1 my-0 form-text">{{ question.total_comments }}</span>
             </div>
-            <div class="ms-auto">
+            <div class="d-flex ms-auto">
                 <button class="btn btn-outline-danger me-1" v-if="showBtnDelete" @click="deletePost(question._id)">
                     <img src="../assets/img/loader.svg" alt="" width="30" class="mx-auto" v-if="isLoading">
                     <i class="bi bi-trash" v-else></i>

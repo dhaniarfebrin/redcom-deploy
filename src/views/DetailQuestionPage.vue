@@ -187,7 +187,8 @@ export default {
                                         </div>
 
                                     </div>
-                                    <p class="mt-4 fw-superlight">{{ questionData.content }}</p>
+                                    <p class="mt-4 fw-superlight" style="white-space: pre-line;">{{ questionData.content }}
+                                    </p>
                                     <div class="d-none d-md-block">
                                         <div class="mt-3 border border-0 pt-3 border-top" v-if="userLoggedIn">
                                             <form action="#" v-on:submit.prevent="createCommentPost" class="d-flex">
@@ -310,21 +311,24 @@ export default {
     div.input-form-comment-section {
         background-color: white;
     }
-    form.form-comment > textarea {
+
+    form.form-comment>textarea {
         font-size: small;
     }
+
     div.border.rounded-4 {
         box-shadow: none !important;
         border: 0 !important;
     }
 
-    div.comment-section {        
+    div.comment-section {
         border-radius: 0 !important;
         margin: 0 !important;
         margin-bottom: 20px !important;
         padding-top: 0 !important;
         z-index: 1;
     }
+
     div.col-md-12.d-flex.flex-column {
         position: sticky;
         background-color: white;
@@ -383,4 +387,5 @@ export default {
         padding-bottom: 2px;
         font-size: small;
     }
-}</style>
+}
+</style>
