@@ -180,11 +180,29 @@ export default {
                                             </span>
                                         </div>
 
-                                        <div class="ms-auto" v-if="userLoggedIn">
+                                        <!-- <div class="ms-auto d-none" v-if="userLoggedIn">
                                             <button class="btn bg-transparent p-1 text-secondary py-0"
                                                 data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-exclamation-triangle-fill
                                                 "></i></button>
+                                        </div> -->
+
+                                        <!-- drop down menu -->
+                                        <div class="ms-auto dropdown" v-if="userLoggedIn">
+                                            <a class="btn bg-transparent text-dark dropdown-toggle p-1" href="#"
+                                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-three-dots"></i>
+                                            </a>
+
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#staticBackdrop">
+                                                        <i class="bi bi-flag-fill text-danger"></i> Report
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
+                                        <!-- drop down menu -->
 
                                     </div>
                                     <p class="mt-4 fw-superlight" style="white-space: pre-line;">{{ questionData.content }}
@@ -288,6 +306,10 @@ export default {
 </template>
 
 <style scoped>
+a.btn.bg-transparent.text-dark.dropdown-toggle::after {
+    display: none;
+}
+
 .mw-50 {
     width: 35vw;
 }
