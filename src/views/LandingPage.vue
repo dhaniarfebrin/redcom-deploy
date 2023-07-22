@@ -11,7 +11,7 @@ export default {
     data() {
         return {
             categoriesData: [],
-            userLoggedIn: Boolean
+            userLoggedIn: Boolean,
         }
     },
     methods: {
@@ -35,6 +35,7 @@ export default {
             .catch(err => {
                 console.log("Error fetching category questions", err)
             })
+        this.i = 0;
     }
 }
 </script>
