@@ -22,6 +22,9 @@ export default {
                 <router-link to="/question" class="d-flex flex-column text-secondary justify-content-center px-1">
                     <i class="bi bi-house-fill"></i>
                 </router-link>
+                <router-link to="/search" class="d-flex flex-column text-secondary justify-content-center px-1">
+                    <i class="bi bi-search"></i>
+                </router-link>
                 <router-link to="/create-question" class="d-flex flex-column text-secondary justify-content-center px-1">
                     <i class="bi bi-plus-circle-fill"></i>
                 </router-link>

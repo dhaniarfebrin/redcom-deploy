@@ -7,9 +7,6 @@ export default {
             this.$router.push({ path: `/question`, query: { categoryPost: this.category.kategori } }) // search
         }
     },
-    mounted() {
-        console.log(iconsData);
-    }
 }
 </script>
 

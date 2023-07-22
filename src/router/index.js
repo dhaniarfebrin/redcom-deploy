@@ -9,9 +9,6 @@ import ProfilePage from '../views/ProfilePage.vue'
 import EditProfilePage from '../views/EditProfilePage.vue'
 import PageNotFound from '../views/PageNotFound/PageNotFound.vue'
 import DashboardPage from '../views/admin/DashboardPage.vue'
-import UsersPage from '../views/admin/UsersPage.vue'
-import PostsPage from '../views/admin/PostsPage.vue'
-import CommentsPage from '../views/admin/CommentsPage.vue'
 import ReportsPage from '../views/admin/ReportsPage.vue'
 
 const router = createRouter({
@@ -65,21 +62,6 @@ const router = createRouter({
       name: 'admin-dashboard',
       component: DashboardPage
     },
-    // {
-    //   path: '/admin/users/:id',
-    //   name: 'admin-user',
-    //   component: UsersPage
-    // },
-    // {
-    //   path: '/admin/posts/:id',
-    //   name: 'admin-post',
-    //   component: PostsPage
-    // },
-    // {
-    //   path: '/admin/comments/:id',
-    //   name: 'admin-comment',
-    //   component: CommentsPage
-    // },
     {
       path: '/admin/reports',
       name: 'admin-report',
