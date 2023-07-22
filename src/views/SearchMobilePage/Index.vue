@@ -36,6 +36,13 @@ export default {
                     }
                 })
         }
+    },
+    beforeCreate() {
+        let width = window.innerWidth;
+
+        if (width > 575.98) {
+            this.$router.push({ path: "/question" })
+        }
     }
 }
 </script>
