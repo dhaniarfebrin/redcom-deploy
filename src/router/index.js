@@ -10,6 +10,7 @@ import EditProfilePage from '../views/EditProfilePage.vue'
 import PageNotFound from '../views/PageNotFound/PageNotFound.vue'
 import DashboardPage from '../views/admin/DashboardPage.vue'
 import ReportsPage from '../views/admin/ReportsPage.vue'
+import SearchMobilePage from '../views/SearchMobilePage/Index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,6 +55,11 @@ const router = createRouter({
       path: '/edit-profile',
       name: 'edit-profile',
       component: EditProfilePage
+    },
+    {
+      path: '/search',
+      name: 'search-page-mobile',
+      component: SearchMobilePage
     },
 
     // Admin Route
